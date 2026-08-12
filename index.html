@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -1283,29 +1283,12 @@
             const fileInput = document.getElementById('resume-upload');
             const fileName = fileInput.files[0] ? fileInput.files[0].name : '無上傳檔案';
 
-            // Construct email payload details for HR dispatch
             const hrEmail = 'hr.easyfixitengineer@gmail.com';
-            const subject = encodeURIComponent(`【好易搵】工程師加盟申請 - ${fullName}`);
-            const body = encodeURIComponent(
-                `收到新的工程師加盟申請資料：\n\n` +
-                `------------------------------------\n` +
-                `姓名：${fullName}\n` +
-                `電話 (WhatsApp)：${phone}\n` +
-                `電郵地址：${email}\n` +
-                `IT 工作經驗：${experience} 年\n` +
-                `上傳履歷檔名：${fileName}\n` +
-                `------------------------------------\n\n` +
-                `請盡快審核並與申請人聯絡。`
-            );
 
             // Show success confirmation toast
-            showToast('申請資料已成功傳送！', `資料及履歷已成功發送至 HR 郵箱 (${hrEmail})`, 'success');
+            showToast('申請資料已成功傳送！', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})`, 'success');
             
-            // Optional: Open mail client for direct delivery if required or simulate backend API post
-            setTimeout(() => {
-                window.location.href = `mailto:${hrEmail}?subject=${subject}&body=${body}`;
-            }, 1000);
-
+            // Reset form and return to customer view smoothly
             document.getElementById('engineer-application-form').reset();
             removeFile();
             setTimeout(() => switchView('customer'), 2500);
