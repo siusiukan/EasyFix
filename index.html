@@ -546,12 +546,12 @@
         function handleEngineerApply(e) {
             e.preventDefault();
             
-            const fullName = document.getElementById('app-fullname').value;
-            const phone = document.getElementById('app-phone').value;
-            const email = document.getElementById('app-email').value;
-            const experience = document.getElementById('app-experience').value;
+            const fullName = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const experience = document.getElementById('experience').value;
             
-            const checkedSkills = Array.from(document.querySelectorAll('input[name="skill"]:checked'))
+            const checkedSkills = Array.from(document.querySelectorAll('input[name="skills"]:checked'))
                                        .map(cb => cb.value)
                                        .join(', ') || '未選擇';
             
@@ -559,12 +559,12 @@
 
             // EmailJS 模板變數 (包含附件 Base64 內容或資料連結)
             const templateParams = {
-                from_name: fullName,
+                from_name: name,
                 phone: phone,
                 email: email,
                 reply_to: email,
                 experience: experience,
-                skills: checkedSkills,
+                skills: skills,
                 resume_name: uploadedFileName || '無上傳檔案',
                 content: uploadedFileBase64 ? `[附件檔案: ${uploadedFileName}] 附檔內容 Base64: ${uploadedFileBase64}` : '未上傳履歷',
                 to_email: hrEmail
