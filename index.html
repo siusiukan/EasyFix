@@ -649,7 +649,7 @@
             showToast('傳送中...', `正在透過 EmailJS 將附檔申請發送至 ${hrEmail} ...`, 'info');
             console.log("Sending EmailJS params:", templateParams);
 
-            emailjs.send('service_agv98ua', 'template_70dpzhn', templateParams)
+            emailjs.send('service_agv98ua', 'template_ljom40q', templateParams)
                 .then(function(response) {
                     console.log('EmailJS Success:', response.status, response.text);
                     showToast('發送成功！', `加盟申請及履歷已成功寄達 HR 郵箱 (${hrEmail})`, 'success');
