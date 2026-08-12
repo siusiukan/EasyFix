@@ -575,16 +575,7 @@
             const serviceId = 'service_agv98ua';
             const templateId = 'template_70dpzhn';
 
-            if (serviceId === 'service_agv98ua' || templateId === 'template_70dpzhn') {
-                console.warn('EmailJS 尚未設定真實的 Service ID 或 Template ID。');
-                setTimeout(() => {
-                    showToast('模擬附檔發送成功 (需設定 ID)', `提示：目前檔案已轉為 Base64 格式並嘗試帶入郵件。請設定 EmailJS 取得真實 ID 寄至 ${hrEmail}。`, 'warning');
-                    document.getElementById('engineer-application-form').reset();
-                    removeFile('resume-upload', 'file-selected-display');
-                }, 1500);
-                return;
-            }
-
+            // 已修復：直接執行真實的 EmailJS 寄信，不再被佔位字串條件攔截
             emailjs.send(serviceId, templateId, templateParams)
                 .then(function(response) {
                     console.log('EmailJS Success with Attachment:', response.status, response.text);
@@ -594,7 +585,7 @@
                     setTimeout(() => switchView('customer'), 2500);
                 }, function(error) {
                     console.error('EmailJS Error Details:', error);
-                    showToast('發送失敗', '無法寄出帶附件的 Email，請檢查 EmailJS 設定。', 'warning');
+                    showToast('發送失敗', '無法寄出帶附件的 Email，請檢查控制台錯誤訊息。', 'warning');
                 });
         }
 
