@@ -267,7 +267,7 @@
         </div>
     </main>
 
-    <main id="view-join" class="flex-grow hidden bg-slate-50 py-12">
+    <div id="view-join" class="flex-grow hidden bg-slate-50 py-12">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-gradient-to-r from-slate-900 to-brand-900 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-10 relative overflow-hidden">
                 <div class="relative z-10 max-w-2xl">
@@ -296,7 +296,7 @@
                 <div class="bg-white/80 p-3 rounded-lg border border-indigo-100 text-xs font-mono text-slate-700 space-y-1">
                     <div>Public Key: <span class="text-indigo-600 font-bold">as57GQ1ugdsZ1yw4A</span></div>
                     <div>Service ID: <span class="text-indigo-600 font-bold">service_agv98ua</span></div>
-                    <div>Template ID: <span class="text-indigo-600 font-bold">template_70dpzhn</span></div>
+                    <div>Template ID: <span class="text-indigo-600 font-bold">template_ljom40q</span></div>
                 </div>
             </div>
 
@@ -560,7 +560,7 @@
                 to_email: recipient
             };
 
-            emailjs.send('service_agv98ua', 'template_70dpzhn', testParams)
+            emailjs.send('service_agv98ua', 'template_ljom40q', testParams)
                 .then(function(res) {
                     console.log('EmailJS Test Success:', res);
                     logBox.innerHTML += `\n[成功] HTTP ${res.status}: ${res.text}`;
@@ -641,12 +641,12 @@
                 reply_to: email,
                 experience: experience,
                 skills: checkedSkills,
-                resume_name: uploadedFileName || '無上傳檔案',
-                content: uploadedFileBase64 ? `[附件檔案: ${uploadedFileName}] 附檔大小: ${Math.round(uploadedFileBase64.length / 1024)} KB` : '未上傳履歷',
+                resume_name: uploadedFileName || '未上傳履歷',
+                content: uploadedFileBase64 ? `[附檔檔案名稱: ${uploadedFileName}] (大小: ${Math.round(uploadedFileBase64.length / 1024)} KB)` : '未附上檔案',
                 to_email: hrEmail
             };
 
-            showToast('傳送中...', `正在透過 EmailJS 將附檔申請發送至 ${hrEmail} ...`, 'info');
+            showToast('傳送中...', `正在透過 EmailJS 將加盟申請發送至 ${hrEmail} ...`, 'info');
             console.log("Sending EmailJS params:", templateParams);
 
             emailjs.send('service_agv98ua', 'template_ljom40q', templateParams)
@@ -658,7 +658,7 @@
                     setTimeout(() => switchView('customer'), 2500);
                 }, function(error) {
                     console.error('EmailJS Error Details:', error);
-                    showToast('發送失敗', '無法寄出郵件，請點擊上方「進行測試寄信」按鈕檢查錯誤原因。', 'warning');
+                    showToast('發送失敗', '無法寄出郵件，請檢查 Console 錯誤與 EmailJS 服務狀態。', 'warning');
                 });
         }
     </script>
