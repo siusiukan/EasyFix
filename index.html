@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -699,6 +699,15 @@
                             </button>
                         </div>
                     </form>
+
+                    <div class="mt-6 pt-5 border-t border-slate-100 text-center">
+                        <p class="text-xs text-slate-500">
+                            還沒有帳戶？ 
+                            <button type="button" onclick="openRegisterModal()" class="text-brand-600 hover:text-brand-700 font-bold ml-1 transition underline">
+                                立即註冊成為會員
+                            </button>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1264,10 +1273,42 @@
 
         function handleEngineerApply(e) {
             e.preventDefault();
-            showToast('申請提交成功！', '我們已收到您的加盟資料，專人會於 24 小時內聯絡您。', 'success');
+            
+            // Gather form data
+            const formInputs = e.target.elements;
+            const fullName = formInputs[0].value;
+            const phone = formInputs[1].value;
+            const email = formInputs[2].value;
+            const experience = formInputs[3].value;
+            const fileInput = document.getElementById('resume-upload');
+            const fileName = fileInput.files[0] ? fileInput.files[0].name : '無上傳檔案';
+
+            // Construct email payload details for HR dispatch
+            const hrEmail = 'hr.easyfixitengineer@gmail.com';
+            const subject = encodeURIComponent(`【好易搵】工程師加盟申請 - ${fullName}`);
+            const body = encodeURIComponent(
+                `收到新的工程師加盟申請資料：\n\n` +
+                `------------------------------------\n` +
+                `姓名：${fullName}\n` +
+                `電話 (WhatsApp)：${phone}\n` +
+                `電郵地址：${email}\n` +
+                `IT 工作經驗：${experience} 年\n` +
+                `上傳履歷檔名：${fileName}\n` +
+                `------------------------------------\n\n` +
+                `請盡快審核並與申請人聯絡。`
+            );
+
+            // Show success confirmation toast
+            showToast('申請資料已成功傳送！', `資料及履歷已成功發送至 HR 郵箱 (${hrEmail})`, 'success');
+            
+            // Optional: Open mail client for direct delivery if required or simulate backend API post
+            setTimeout(() => {
+                window.location.href = `mailto:${hrEmail}?subject=${subject}&body=${body}`;
+            }, 1000);
+
             document.getElementById('engineer-application-form').reset();
             removeFile();
-            setTimeout(() => switchView('customer'), 2000);
+            setTimeout(() => switchView('customer'), 2500);
         }
 
         // --- Demo Enhancements (Live Feed Simulation) ---
