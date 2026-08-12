@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -642,17 +642,17 @@
                 experience: experience,
                 skills: checkedSkills,
                 resume_name: uploadedFileName || '未上傳履歷',
-                content: uploadedFileBase64 ? `[附檔檔案名稱: ${uploadedFileName}] (大小: ${Math.round(uploadedFileBase64.length / 1024)} KB)` : '未附上檔案',
+                content: `求職者: ${fullName} | 電話: ${phone} | 經驗: ${experience}年 | 專長: ${checkedSkills} | 履歷檔案: ${uploadedFileName || '無'}`,
                 to_email: hrEmail
             };
 
-            showToast('傳送中...', `正在透過 EmailJS 將加盟申請發送至 ${hrEmail} ...`, 'info');
-            console.log("Sending EmailJS params:", templateParams);
+            showToast('傳送中...', `正在透過 EmailJS 將申請真實寄至 ${hrEmail} ...`, 'info');
+            console.log("Sending EmailJS params with template_ljom40q:", templateParams);
 
             emailjs.send('service_agv98ua', 'template_ljom40q', templateParams)
                 .then(function(response) {
                     console.log('EmailJS Success:', response.status, response.text);
-                    showToast('發送成功！', `加盟申請及履歷已成功寄達 HR 郵箱 (${hrEmail})`, 'success');
+                    showToast('發送成功！', `加盟申請已成功寄達 HR 郵箱 (${hrEmail})`, 'success');
                     document.getElementById('engineer-application-form').reset();
                     removeFile('resume-upload', 'file-selected-display');
                     setTimeout(() => switchView('customer'), 2500);
