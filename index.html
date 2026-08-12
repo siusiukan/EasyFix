@@ -11,7 +11,7 @@
         (function() {
             // Initialize EmailJS with your Public Key
             // 請確保這裡填入您從 EmailJS 帳號取得的真實 Public Key (例如 "user_xxxxxxxxxx")
-            emailjs.init("YOUR_PUBLIC_KEY");
+            emailjs.init("as57GQ1ugdsZ1yw4A");
         })();
     </script>
 
@@ -572,10 +572,10 @@
 
             showToast('傳送中...', `正在透過 EmailJS 將附檔申請發送至 ${hrEmail} ...`, 'info');
 
-            const serviceId = 'YOUR_SERVICE_ID';
-            const templateId = 'YOUR_TEMPLATE_ID';
+            const serviceId = 'service_agv98ua';
+            const templateId = 'template_70dpzhn';
 
-            if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID') {
+            if (serviceId === 'service_agv98ua' || templateId === 'template_70dpzhn') {
                 console.warn('EmailJS 尚未設定真實的 Service ID 或 Template ID。');
                 setTimeout(() => {
                     showToast('模擬附檔發送成功 (需設定 ID)', `提示：目前檔案已轉為 Base64 格式並嘗試帶入郵件。請設定 EmailJS 取得真實 ID 寄至 ${hrEmail}。`, 'warning');
