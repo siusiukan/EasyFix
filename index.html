@@ -40,19 +40,6 @@
         }
     </script>
     
-    <!-- EmailJS SDK for live mail dispatching -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // Initialize EmailJS with public key (can be updated with user's specific key)
-            try {
-                emailjs.init("service_easyfix_hr");
-            } catch(e) {
-                console.log("EmailJS init note:", e);
-            }
-        })();
-    </script>
-    
     <style>
         body { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
         
@@ -299,28 +286,24 @@
                 <i class="fa-solid fa-user-gear text-slate-800/40 text-9xl absolute -right-6 -bottom-6 pointer-events-none"></i>
             </div>
 
-            <!-- Direct SSL Mail Relay Information Box -->
+            <!-- Direct Mail Relay Information Box -->
             <div class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-2xl mb-8 text-sm text-emerald-900 shadow-sm">
                 <div class="flex items-center gap-2 font-bold text-base text-emerald-900 mb-2">
-                    <i class="fa-solid fa-shield-halved text-emerald-600"></i> SMTP / SSL 直發郵件機制已啟用
+                    <i class="fa-solid fa-shield-halved text-emerald-600"></i> 直接寄信功能已啟用
                 </div>
-                <p class="text-xs leading-relaxed text-emerald-800 mb-2">
-                    本系統已連接專用 SMTP 郵件通道，所有提交的加盟申請將自動格式化並發送至指定 HR 信箱： <strong>hr.easyfixitengineer@gmail.com</strong>。
+                <p class="text-xs leading-relaxed text-emerald-800 mb-1">
+                    當您填妥並提交下方申請後，系統會自動整理所有資料（包括全名、電話、電郵、工作年資及專長），並直接透過您的郵件程式發送至： <strong>hr.easyfixitengineer@gmail.com</strong>。
                 </p>
-                <div class="text-[11px] bg-emerald-100/80 p-2.5 rounded-xl font-mono text-emerald-900 mt-2 border border-emerald-200">
-                    🔒 <strong>傳輸安全</strong>：資料透過安全 SSL/TLS 加密通道打包轉送，並支援備用 `mailto:` 及直接郵件閘道彈窗。
-                </div>
             </div>
 
-            <!-- Application Form with Direct SMTP Action -->
+            <!-- Application Form with Direct Action -->
             <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-10">
                 <div class="border-b border-slate-200 pb-6 mb-8">
                     <h2 class="text-2xl font-bold text-slate-900">提交工程師加盟申請</h2>
-                    <p class="text-slate-500 text-sm mt-1">請填寫您的基本資料與專長領域，並上傳履歷。資料將透過 SMTP 自動發送至 hr.easyfixitengineer@gmail.com。</p>
+                    <p class="text-slate-500 text-sm mt-1">請填寫您的基本資料與專長領域，並點擊下方按鈕直接寄發申請至 hr.easyfixitengineer@gmail.com。</p>
                 </div>
 
-                <!-- Form configured with robust SMTP SSL direct submission -->
-                <form id="engineer-application-form" onsubmit="handleDirectSSLEmail(event)" class="space-y-6">
+                <form id="engineer-application-form" onsubmit="handleDirectEmail(event)" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">中文/英文全名 *</label>
@@ -386,7 +369,7 @@
 
                     <div class="pt-4 border-t border-slate-200">
                         <button type="submit" id="submit-apply-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition text-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> 透過 SMTP 傳送加盟申請至 hr.easyfixitengineer@gmail.com
+                            <i class="fa-solid fa-paper-plane"></i> 傳送加盟申請至 hr.easyfixitengineer@gmail.com
                         </button>
                     </div>
                 </form>
@@ -557,8 +540,8 @@
             uploadedFileName = '';
         }
 
-        /* Robust SMTP / SSL Direct Dispatcher with FormSubmit & mailto fallback */
-        function handleDirectSSLEmail(e) {
+        /* Direct Email Dispatcher (No EmailJS, direct mailto and structured data formatting) */
+        function handleDirectEmail(e) {
             e.preventDefault();
             
             const fullName = document.getElementById('app-fullname').value;
@@ -574,9 +557,9 @@
 
             const submitBtn = document.getElementById('submit-apply-btn');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> 正在通過 SMTP SSL 通道發送至 hr.easyfixitengineer@gmail.com ...`;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> 正在傳送至 hr.easyfixitengineer@gmail.com ...`;
 
-            console.group("=== 【好易搵】SMTP / SSL 郵件直發傳輸日誌 ===");
+            console.group("=== 【好易搵】工程師加盟申請資料 ===");
             console.log("收件人 (To): hr.easyfixitengineer@gmail.com");
             console.log("申請人全名:", fullName);
             console.log("聯絡電話:", phone);
@@ -584,10 +567,9 @@
             console.log("年資:", experience, "年");
             console.log("核心專長:", checkedSkills);
             console.log("附加檔案:", resumeFileName);
-            console.log("傳輸狀態: SMTP 伺服器連線成功");
             console.groupEnd();
 
-            // Format email body for direct mailto fallback and server transmission
+            const targetEmail = "hr.easyfixitengineer@gmail.com";
             const emailSubject = encodeURIComponent(`【工程師加盟申請】${fullName} - 好易搵電腦工程`);
             const emailBody = encodeURIComponent(
                 `收到來自「好易搵電腦工程」平台的新工程師加盟申請：\n\n` +
@@ -599,27 +581,26 @@
                 `• 核心服務專長: ${checkedSkills}\n` +
                 `• 附加履歷檔名: ${resumeFileName}\n` +
                 `--------------------------------------------------\n\n` +
-                `此郵件透過好易搵平台安全 SMTP SSL 通道自動發送。`
+                `請盡快聯絡應徵者審核牌照與安排面試。`
             );
 
-            // Simulate SMTP handshake completion
             setTimeout(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 透過 SMTP 傳送加盟申請至 hr.easyfixitengineer@gmail.com`;
+                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 傳送加盟申請至 hr.easyfixitengineer@gmail.com`;
                 
                 showToast(
-                    '✅ SMTP 郵件發送成功！', 
-                    `已成功透過安全 SSL 通道發送至 hr.easyfixitengineer@gmail.com（申請人：${fullName}）。`, 
+                    '✅ 申請資料已準備完成！', 
+                    `正為您開啟郵件程式發送至 ${targetEmail}（申請人：${fullName}）。`, 
                     'success'
                 );
 
-                // Open mail client as direct confirmation if desired, or trigger email dispatch
-                const mailtoWindow = window.open(`mailto:hr.easyfixitengineer@gmail.com?subject=${emailSubject}&body=${emailBody}`, '_blank');
+                // Open mail client directly to hr.easyfixitengineer@gmail.com
+                window.open(`mailto:${targetEmail}?subject=${emailSubject}&body=${emailBody}`, '_blank');
 
                 // Reset form & file display
                 document.getElementById('engineer-application-form').reset();
                 removeFile('resume-upload', 'file-selected-display');
-            }, 1500);
+            }, 1000);
         }
     </script>
 </body>
