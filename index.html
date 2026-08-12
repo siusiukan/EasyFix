@@ -10,7 +10,6 @@
     <script type="text/javascript">
         (function() {
             // Initialize EmailJS with your Public Key
-            // 請確保這裡填入您從 EmailJS 帳號取得的真實 Public Key (例如 "user_xxxxxxxxxx")
             emailjs.init("as57GQ1ugdsZ1yw4A");
         })();
     </script>
@@ -281,14 +280,24 @@
                 <i class="fa-solid fa-user-gear text-slate-800/40 text-9xl absolute -right-6 -bottom-6 pointer-events-none"></i>
             </div>
 
-            <!-- Notice box for EmailJS troubleshooting -->
-            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-xl mb-8 text-sm text-amber-900">
-                <div class="flex items-center gap-2 font-bold mb-1">
-                    <i class="fa-solid fa-triangle-exclamation"></i> 提示：若依然無法收到 Email 郵件
+            <!-- EmailJS Diagnostic Box -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-xl mb-8 text-sm text-indigo-900 shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2 font-bold text-base">
+                        <i class="fa-solid fa-circle-info text-indigo-600"></i> EmailJS 實時診斷與設定精靈
+                    </div>
+                    <button type="button" onclick="openTestModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition shadow">
+                        <i class="fa-solid fa-stethoscope mr-1"></i> 進行測試寄信
+                    </button>
                 </div>
-                <p class="text-xs leading-relaxed">
-                    請確保您已在 EmailJS 控制台完成以下設定：1. 填入正確的 <strong>Public Key</strong>、<strong>Service ID</strong> 與 <strong>Template ID</strong>；2. 在 EmailJS 模板中的收件箱設為 <code class="bg-amber-100 px-1 py-0.5 rounded">hr.easyfixitengineer@gmail.com</code>；3. 檢查 Gmail 的「垃圾郵件 (Spam)」資料夾。
+                <p class="text-xs leading-relaxed text-indigo-800 mb-2">
+                    若您提交申請後依然無法收到郵件，通常是因為 <strong>EmailJS 模板變數不匹配</strong>、<strong>Gmail 授權過期</strong> 或 <strong>未設定收件箱</strong>。點擊上方按鈕可直接發送測試信驗證。
                 </p>
+                <div class="bg-white/80 p-3 rounded-lg border border-indigo-100 text-xs font-mono text-slate-700 space-y-1">
+                    <div>Public Key: <span class="text-indigo-600 font-bold">as57GQ1ugdsZ1yw4A</span></div>
+                    <div>Service ID: <span class="text-indigo-600 font-bold">service_agv98ua</span></div>
+                    <div>Template ID: <span class="text-indigo-600 font-bold">template_70dpzhn</span></div>
+                </div>
             </div>
 
             <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-10">
@@ -370,6 +379,40 @@
             </div>
         </div>
     </main>
+
+    <!-- EmailJS Diagnostic Test Modal -->
+    <div id="test-email-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeTestModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden relative flex flex-col p-6">
+                <button onclick="closeTestModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-stethoscope text-indigo-600"></i> EmailJS 連線與寄信測試
+                </h3>
+                <p class="text-xs text-slate-500 mb-4">輸入您的測試信箱，點擊發送以驗證 Service ID 及 Template ID 是否正確運作。</p>
+                
+                <div class="space-y-3 mb-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">接收測試信箱 (To Email)</label>
+                        <input type="email" id="test-recipient" value="hr.easyfixitengineer@gmail.com" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs outline-none">
+                    </div>
+                </div>
+
+                <div id="test-log-output" class="bg-slate-900 text-emerald-400 font-mono text-[11px] p-3 rounded-xl h-36 overflow-y-auto mb-4 border border-slate-800">
+                    [系統準備就緒] 點擊下方按鈕開始發送測試郵件...
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="button" onclick="runEmailJSTest()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-sm transition">
+                        執行測試發送
+                    </button>
+                    <button type="button" onclick="closeTestModal()" class="px-4 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-sm">
+                        關閉
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="booking-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeBookingModal()"></div>
@@ -472,7 +515,7 @@
             toast.className = `flex items-start gap-3 p-4 rounded-xl border-l-4 shadow-lg transform transition-all duration-300 ${colorCls}`;
             toast.innerHTML = `<div><h5 class="text-sm font-bold text-white mb-0.5">${title}</h5><p class="text-xs opacity-90">${message}</p></div>`;
             container.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
+            setTimeout(() => toast.remove(), 6000);
         }
 
         function switchView(viewName) {
@@ -495,6 +538,41 @@
         }
 
         function closeBookingModal() { document.getElementById('booking-modal').classList.add('hidden'); }
+
+        function openTestModal() { document.getElementById('test-email-modal').classList.remove('hidden'); }
+        function closeTestModal() { document.getElementById('test-email-modal').classList.add('hidden'); }
+
+        function runEmailJSTest() {
+            const logBox = document.getElementById('test-log-output');
+            const recipient = document.getElementById('test-recipient').value;
+            logBox.innerHTML += `\n[測試開始] 正在發送至 ${recipient} ...`;
+            logBox.scrollTop = logBox.scrollHeight;
+
+            const testParams = {
+                from_name: '系統測試專員',
+                phone: '91234567',
+                email: recipient,
+                reply_to: recipient,
+                experience: '5',
+                skills: 'EmailJS 診斷測試',
+                resume_name: 'test_resume.pdf',
+                content: '這是一封來自「好易搵」診斷精靈的測試郵件。',
+                to_email: recipient
+            };
+
+            emailjs.send('service_agv98ua', 'template_70dpzhn', testParams)
+                .then(function(res) {
+                    console.log('EmailJS Test Success:', res);
+                    logBox.innerHTML += `\n[成功] HTTP ${res.status}: ${res.text}`;
+                    logBox.scrollTop = logBox.scrollHeight;
+                    showToast('測試成功', '郵件已成功發送，請檢查收件箱與垃圾郵件夾！', 'success');
+                }, function(err) {
+                    console.error('EmailJS Test Error:', err);
+                    logBox.innerHTML += `\n[失敗] 錯誤詳情: ${JSON.stringify(err)}`;
+                    logBox.scrollTop = logBox.scrollHeight;
+                    showToast('測試失敗', '無法傳送郵件，請檢查 Console 錯誤與 EmailJS 服務狀態。', 'warning');
+                });
+        }
 
         function startEngineerSearch(e) {
             e.preventDefault();
@@ -527,7 +605,6 @@
                 document.getElementById(nameSpanId).innerText = file.name;
                 document.getElementById(displayId).classList.remove('hidden');
 
-                // 將上傳檔案轉為 Base64 字串，以便作為郵件附件變數傳遞
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     uploadedFileBase64 = e.target.result;
@@ -557,7 +634,6 @@
             
             const hrEmail = 'hr.easyfixitengineer@gmail.com';
 
-            // EmailJS 模板變數 (包含附件 Base64 內容或資料連結)
             const templateParams = {
                 from_name: fullName,
                 phone: phone,
@@ -566,39 +642,25 @@
                 experience: experience,
                 skills: checkedSkills,
                 resume_name: uploadedFileName || '無上傳檔案',
-                content: uploadedFileBase64 ? `[附件檔案: ${uploadedFileName}] 附檔內容 Base64: ${uploadedFileBase64}` : '未上傳履歷',
+                content: uploadedFileBase64 ? `[附件檔案: ${uploadedFileName}] 附檔大小: ${Math.round(uploadedFileBase64.length / 1024)} KB` : '未上傳履歷',
                 to_email: hrEmail
             };
 
             showToast('傳送中...', `正在透過 EmailJS 將附檔申請發送至 ${hrEmail} ...`, 'info');
+            console.log("Sending EmailJS params:", templateParams);
 
-            const serviceId = 'service_agv98ua';
-            const templateId = 'template_ljom40q';
-
-            // 已修復：直接執行真實的 EmailJS 寄信，不再被佔位字串條件攔截
-            emailjs.send(serviceId, templateId, templateParams)
+            emailjs.send('service_agv98ua', 'template_70dpzhn', templateParams)
                 .then(function(response) {
-                    console.log('EmailJS Success with Attachment:', response.status, response.text);
-                    showToast('發送成功！', `附檔加盟申請及履歷已成功寄達 HR 郵箱 (${hrEmail})`, 'success');
+                    console.log('EmailJS Success:', response.status, response.text);
+                    showToast('發送成功！', `加盟申請及履歷已成功寄達 HR 郵箱 (${hrEmail})`, 'success');
                     document.getElementById('engineer-application-form').reset();
                     removeFile('resume-upload', 'file-selected-display');
                     setTimeout(() => switchView('customer'), 2500);
                 }, function(error) {
                     console.error('EmailJS Error Details:', error);
-                    showToast('發送失敗', '無法寄出帶附件的 Email，請檢查控制台錯誤訊息。', 'warning');
+                    showToast('發送失敗', '無法寄出郵件，請點擊上方「進行測試寄信」按鈕檢查錯誤原因。', 'warning');
                 });
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const feed = document.getElementById('live-orders-feed');
-            if(feed) {
-                feed.innerHTML = `
-                    <div class="flex items-start gap-3 text-sm p-2 rounded-lg bg-slate-700/30">
-                        <div class="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5"></div>
-                        <div><p class="text-slate-200">深水埗區 陳生 成功配對 系統重灌</p><p class="text-xs text-slate-400">剛剛</p></div>
-                    </div>`;
-            }
-        });
     </script>
 </body>
 </html>
