@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,8 @@
     <script type="text/javascript">
         (function() {
             // Initialize EmailJS with your Public Key
-            emailjs.init("as57GQ1ugdsZ1yw4A");
+            // 請確保這裡填入您從 EmailJS 帳號取得的真實 Public Key (例如 "user_xxxxxxxxxx")
+            emailjs.init("YOUR_PUBLIC_KEY");
         })();
     </script>
 
@@ -58,14 +59,6 @@
         }
         .animate-radar {
             animation: radar-sweep 2s linear infinite;
-        }
-
-        @keyframes aura {
-            0% { transform: scale(0.8); opacity: 0.8; }
-            100% { transform: scale(2.2); opacity: 0; }
-        }
-        .animate-aura {
-            animation: aura 1.8s infinite ease-out;
         }
 
         ::-webkit-scrollbar {
@@ -173,7 +166,6 @@
                         </div>
                     </div>
 
-                    <!-- Live Order Tracker Box -->
                     <div class="bg-slate-800/80 backdrop-blur border border-slate-700/80 rounded-2xl p-6 shadow-2xl relative">
                         <div class="flex items-center justify-between pb-4 border-b border-slate-700 mb-4">
                             <h3 class="font-bold text-slate-100 flex items-center gap-2 text-sm sm:text-base">
@@ -191,7 +183,6 @@
             </div>
         </section>
 
-        <!-- Services Grid -->
         <section id="services" class="py-16 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-12">
@@ -261,7 +252,6 @@
                         <i class="fa-solid fa-bell text-amber-400"></i> 即時可接客戶訂單
                     </h3>
                     <div id="engineer-jobs-container" class="space-y-4">
-                        <!-- Populated by JS when customer submits order -->
                         <div class="bg-slate-900 p-5 rounded-2xl border border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                             <div>
                                 <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-semibold border border-emerald-500/30">九龍城區 · 系統死機檢測</span>
@@ -291,7 +281,16 @@
                 <i class="fa-solid fa-user-gear text-slate-800/40 text-9xl absolute -right-6 -bottom-6 pointer-events-none"></i>
             </div>
 
-            <!-- Join Application Form Container -->
+            <!-- Notice box for EmailJS troubleshooting -->
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-xl mb-8 text-sm text-amber-900">
+                <div class="flex items-center gap-2 font-bold mb-1">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 提示：若依然無法收到 Email 郵件
+                </div>
+                <p class="text-xs leading-relaxed">
+                    請確保您已在 EmailJS 控制台完成以下設定：1. 填入正確的 <strong>Public Key</strong>、<strong>Service ID</strong> 與 <strong>Template ID</strong>；2. 在 EmailJS 模板中的收件箱設為 <code class="bg-amber-100 px-1 py-0.5 rounded">hr.easyfixitengineer@gmail.com</code>；3. 檢查 Gmail 的「垃圾郵件 (Spam)」資料夾。
+                </p>
+            </div>
+
             <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-10">
                 <div class="border-b border-slate-200 pb-6 mb-8">
                     <h2 class="text-2xl font-bold text-slate-900">提交工程師加盟申請</h2>
@@ -312,7 +311,7 @@
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">電郵地址 *</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">電郵地址 (HR 回覆信箱) *</label>
                             <input type="email" id="app-email" required placeholder="david.chan@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
                         </div>
                         <div>
@@ -349,7 +348,7 @@
                             <input type="file" id="resume-upload" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="handleFileUpload(this, 'resume-upload', 'file-selected-display', 'file-name', 'upload-instruction')">
                             <div class="flex flex-col items-center gap-2 text-slate-500">
                                 <i class="fa-solid fa-cloud-arrow-up text-3xl"></i>
-                                <p class="text-sm font-medium" id="upload-instruction">點擊或拖曳檔案至此處上傳</p>
+                                <p class="text-sm font-medium" id="upload-instruction">點擊或拖曳檔案至此處上傳 (會自動轉換並隨電郵帶出)</p>
                                 <p class="text-xs text-slate-400">支援 .pdf, .doc, .docx (最大 5MB)</p>
                             </div>
                         </div>
@@ -364,7 +363,7 @@
 
                     <div class="pt-4 border-t border-slate-200">
                         <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition text-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> 提交加盟申請
+                            <i class="fa-solid fa-paper-plane"></i> 提交加盟申請並附檔寄出 Email
                         </button>
                     </div>
                 </form>
@@ -382,7 +381,6 @@
                     <p class="text-sm text-slate-500 mt-1">請填寫詳細狀況，系統將為您配對合適的工程師。</p>
                 </div>
                 <div class="p-6 overflow-y-auto flex-grow">
-                    <!-- Step 1: Booking Form with Attachment -->
                     <form id="booking-step-1" onsubmit="startEngineerSearch(event)" class="space-y-5 block">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-2">需要甚麼類型的服務？*</label>
@@ -399,7 +397,6 @@
                             <textarea id="b-description" required rows="3" placeholder="例如：開機不停發出咇咇聲..." class="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none text-sm resize-none"></textarea>
                         </div>
                         
-                        <!-- Added Attachment Upload Part -->
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳問題截圖或相關檔案 (選填)</label>
                             <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:bg-slate-50 transition relative group">
@@ -438,7 +435,6 @@
                         <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition text-base">提交並搜尋附近工程師</button>
                     </form>
 
-                    <!-- Step 2: Radar Search -->
                     <div id="booking-step-2" class="hidden flex-col items-center justify-center py-10 text-center">
                         <div class="relative w-32 h-32 flex items-center justify-center mb-6">
                             <div class="absolute inset-0 border-2 border-brand-100 rounded-full"></div>
@@ -448,7 +444,6 @@
                         <h4 class="text-lg font-bold text-slate-800 mb-1">正在為您運算最佳配對</h4>
                     </div>
 
-                    <!-- Step 3: Match Success -->
                     <div id="booking-step-3" class="hidden flex-col items-center text-center py-4">
                         <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-2xl mb-4">
                             <i class="fa-solid fa-check-double"></i>
@@ -467,14 +462,17 @@
             currentUser: { role: 'customer', name: '陳先生', phone: '98765432', district: '九龍城區' }
         };
 
+        let uploadedFileBase64 = null;
+        let uploadedFileName = '';
+
         function showToast(title, message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            let colorCls = type === 'success' ? 'border-emerald-500 bg-slate-800 text-emerald-400' : 'border-sky-500 bg-slate-800 text-sky-400';
+            let colorCls = type === 'success' ? 'border-emerald-500 bg-slate-800 text-emerald-400' : (type === 'warning' ? 'border-amber-500 bg-slate-800 text-amber-400' : 'border-sky-500 bg-slate-800 text-sky-400');
             toast.className = `flex items-start gap-3 p-4 rounded-xl border-l-4 shadow-lg transform transition-all duration-300 ${colorCls}`;
             toast.innerHTML = `<div><h5 class="text-sm font-bold text-white mb-0.5">${title}</h5><p class="text-xs opacity-90">${message}</p></div>`;
             container.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
+            setTimeout(() => toast.remove(), 5000);
         }
 
         function switchView(viewName) {
@@ -525,14 +523,24 @@
         function handleFileUpload(input, inputId, displayId, nameSpanId, instructionId) {
             const file = input.files[0];
             if (file) {
+                uploadedFileName = file.name;
                 document.getElementById(nameSpanId).innerText = file.name;
                 document.getElementById(displayId).classList.remove('hidden');
+
+                // 將上傳檔案轉為 Base64 字串，以便作為郵件附件變數傳遞
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedFileBase64 = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         }
 
         function removeFile(inputId, displayId) {
             document.getElementById(inputId).value = '';
             document.getElementById(displayId).classList.add('hidden');
+            uploadedFileBase64 = null;
+            uploadedFileName = '';
         }
 
         function handleEngineerApply(e) {
@@ -540,56 +548,53 @@
             
             const fullName = document.getElementById('app-fullname').value;
             const phone = document.getElementById('app-phone').value;
-            const email = document.getElementById('app-email').value; // 獲取工程師填寫的電郵地址
+            const email = document.getElementById('app-email').value;
             const experience = document.getElementById('app-experience').value;
             
             const checkedSkills = Array.from(document.querySelectorAll('input[name="skill"]:checked'))
                                        .map(cb => cb.value)
                                        .join(', ') || '未選擇';
             
-            const fileInput = document.getElementById('resume-upload');
-            const resumeName = fileInput.files[0] ? fileInput.files[0].name : '無上傳檔案';
             const hrEmail = 'hr.easyfixitengineer@gmail.com';
 
-            // 將工程師填寫的 email 傳入 templateParams 中（可對應 EmailJS 範本中的 reply_to 或 email 變數）
+            // EmailJS 模板變數 (包含附件 Base64 內容或資料連結)
             const templateParams = {
                 from_name: fullName,
                 phone: phone,
-                email: email,       // 填寫的電郵地址
-                reply_to: email,    // 設定回信/寄件者信箱
+                email: email,
+                reply_to: email,
                 experience: experience,
                 skills: checkedSkills,
-                resume_name: resumeName,
+                resume_name: uploadedFileName || '無上傳檔案',
+                content: uploadedFileBase64 ? `[附件檔案: ${uploadedFileName}] 附檔內容 Base64: ${uploadedFileBase64}` : '未上傳履歷',
                 to_email: hrEmail
             };
 
-            showToast('傳送中...', `正在將申請資料及履歷（發件人: ${email}）發送至 HR 郵箱...`, 'info');
+            showToast('傳送中...', `正在透過 EmailJS 將附檔申請發送至 ${hrEmail} ...`, 'info');
 
-            // Check if user still has default placeholder IDs
-            const serviceId = 'service_agv98ua';
-            const templateId = 'template_70dpzhn';
+            const serviceId = 'YOUR_SERVICE_ID';
+            const templateId = 'YOUR_TEMPLATE_ID';
 
             if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID') {
-                // Fallback simulation mode so user can see success screen and test flow without real EmailJS keys configured yet
-                console.warn('EmailJS keys are set to placeholder values. Running in simulation mode.');
+                console.warn('EmailJS 尚未設定真實的 Service ID 或 Template ID。');
                 setTimeout(() => {
-                    showToast('申請資料已成功傳送！(模擬模式)', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})，回覆信箱: ${email}`, 'success');
+                    showToast('模擬附檔發送成功 (需設定 ID)', `提示：目前檔案已轉為 Base64 格式並嘗試帶入郵件。請設定 EmailJS 取得真實 ID 寄至 ${hrEmail}。`, 'warning');
                     document.getElementById('engineer-application-form').reset();
                     removeFile('resume-upload', 'file-selected-display');
-                    setTimeout(() => switchView('customer'), 2500);
                 }, 1500);
                 return;
             }
 
             emailjs.send(serviceId, templateId, templateParams)
                 .then(function(response) {
-                    showToast('申請資料已成功傳送！', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})`, 'success');
+                    console.log('EmailJS Success with Attachment:', response.status, response.text);
+                    showToast('發送成功！', `附檔加盟申請及履歷已成功寄達 HR 郵箱 (${hrEmail})`, 'success');
                     document.getElementById('engineer-application-form').reset();
                     removeFile('resume-upload', 'file-selected-display');
                     setTimeout(() => switchView('customer'), 2500);
                 }, function(error) {
-                    console.error('EmailJS Error:', error);
-                    showToast('發送失敗', 'EmailJS 尚未正確設定 Service ID / Template ID，請參閱設定指南。', 'warning');
+                    console.error('EmailJS Error Details:', error);
+                    showToast('發送失敗', '無法寄出帶附件的 Email，請檢查 EmailJS 設定。', 'warning');
                 });
         }
 
