@@ -1,13 +1,17 @@
-<!DOCTYPE html>
+
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>好易搵電腦工程有限公司 - 專業上門電腦服務與工程師平台</title>
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts Inter & Noto Sans TC -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
@@ -40,6 +44,7 @@
     <style>
         body { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
         
+        /* Custom Radar Animation for Matching */
         @keyframes radar-sweep {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -48,6 +53,7 @@
             animation: radar-sweep 2s linear infinite;
         }
 
+        /* Pulse aura for map nodes */
         @keyframes aura {
             0% { transform: scale(0.8); opacity: 0.8; }
             100% { transform: scale(2.2); opacity: 0; }
@@ -56,6 +62,7 @@
             animation: aura 1.8s infinite ease-out;
         }
 
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -74,35 +81,14 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
-    <div class="bg-slate-900 text-slate-200 py-2 px-4 text-xs md:text-sm border-b border-slate-800 sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div class="flex items-center gap-2">
-                <span class="inline-flex items-center px-2 py-0.5 rounded bg-brand-500/20 text-brand-300 font-semibold border border-brand-500/30">
-                    <i class="fa-solid fa-flask-vial mr-1.5 text-xs"></i> 系統模擬模式
-                </span>
-                <span class="text-slate-400 hidden sm:inline">好易搵電腦工程有限公司 - 雙向服務平台</span>
-            </div>
-            
-            <div class="flex items-center gap-1 bg-slate-800 p-1 rounded-lg border border-slate-700">
-                <button onclick="switchView('customer')" id="btn-view-customer" class="px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 bg-brand-600 text-white shadow-sm">
-                    <i class="fa-solid fa-user-gear mr-1"></i> 客戶服務端
-                </button>
-                <button onclick="switchView('engineer')" id="btn-view-engineer" class="px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700">
-                    <i class="fa-solid fa-helmet-safety mr-1"></i> 工程師工作台
-                    <span id="eng-notification-badge" class="hidden ml-1 px-1.5 py-0.2 bg-red-500 text-white rounded-full text-[10px] animate-pulse">1</span>
-                </button>
-                <button onclick="switchView('join')" id="btn-view-join" class="px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700">
-                    <i class="fa-solid fa-user-plus mr-1"></i> 工程師加盟專頁
-                </button>
-            </div>
-        </div>
-    </div>
-
+    <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-md w-full pointer-events-none px-4 sm:px-0"></div>
 
-    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-[41px] z-40">
+    <!-- Main Header -->
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('customer')">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="handleLogoClick()">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
                     <i class="fa-solid fa-laptop-code text-xl"></i>
                 </div>
@@ -112,31 +98,27 @@
                 </div>
             </div>
 
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
-                <a href="#services" onclick="switchView('customer')" class="hover:text-brand-600 transition">服務範疇</a>
-                <a href="#workflow" onclick="switchView('customer')" class="hover:text-brand-600 transition">服務流程</a>
-                <a href="#pricing" onclick="switchView('customer')" class="hover:text-brand-600 transition">收費透明化</a>
-                <button onclick="switchView('join')" class="hover:text-brand-600 transition text-slate-700 flex items-center gap-1">
+            <!-- Header Nav Links -->
+            <nav id="main-nav" class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+                <a href="#services" onclick="switchView('customer')" class="hover:text-brand-600 transition nav-customer-only">服務範疇</a>
+                <a href="#workflow" onclick="switchView('customer')" class="hover:text-brand-600 transition nav-customer-only">服務流程</a>
+                <button onclick="switchView('join')" class="hover:text-brand-600 transition text-slate-700 flex items-center gap-1 nav-customer-only">
                     <i class="fa-solid fa-briefcase text-brand-500"></i> 工程師招募加盟
                 </button>
             </nav>
 
+            <!-- Customer Action / Login Status -->
             <div class="flex items-center space-x-3">
                 <div id="user-status-display" class="flex items-center gap-2">
-                    <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1.5 rounded-full border border-slate-200 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        <span id="current-user-name">客戶：陳先生 (九龍城區)</span>
-                    </span>
-                    <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm shadow-brand-600/30 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-wrench"></i>
-                        <span>即時預約上門</span>
-                    </button>
+                    <!-- Streamlined status display, logic moved to JS -->
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- VIEW 1: CUSTOMER VIEW -->
     <main id="view-customer" class="flex-grow">
+        <!-- Hero Banner -->
         <section class="relative bg-slate-900 text-white overflow-hidden py-16 md:py-24">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -156,11 +138,12 @@
                                 <i class="fa-solid fa-location-dot"></i>
                                 立即搜尋附近工程師
                             </button>
-                            <a href="#services" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3.5 rounded-xl text-base border border-slate-700 transition text-center">
+                            <a href="#services" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3.5 rounded-xl text-base border border-slate-700 transition text-center flex items-center justify-center">
                                 瀏覽完整服務項目
                             </a>
                         </div>
 
+                        <!-- Highlights -->
                         <div class="mt-10 pt-8 border-t border-slate-800 grid grid-cols-3 gap-4 text-center">
                             <div>
                                 <p class="text-2xl font-bold text-white">99.4%</p>
@@ -177,6 +160,7 @@
                         </div>
                     </div>
 
+                    <!-- Interactive Live Order Tracker Box -->
                     <div class="bg-slate-800/80 backdrop-blur border border-slate-700/80 rounded-2xl p-6 shadow-2xl relative">
                         <div class="flex items-center justify-between pb-4 border-b border-slate-700 mb-4">
                             <h3 class="font-bold text-slate-100 flex items-center gap-2 text-sm sm:text-base">
@@ -189,7 +173,9 @@
                             <span class="text-xs text-slate-400">實時派遣中</span>
                         </div>
 
-                        <div id="live-orders-feed" class="space-y-3 max-h-[280px] overflow-y-auto pr-1"></div>
+                        <div id="live-orders-feed" class="space-y-3 max-h-[280px] overflow-y-auto pr-1">
+                            <!-- Dynamic feeds rendered by JS -->
+                        </div>
 
                         <div class="mt-4 pt-4 border-t border-slate-700 text-center">
                             <p class="text-xs text-slate-400">
@@ -201,6 +187,7 @@
             </div>
         </section>
 
+        <!-- Services Section -->
         <section id="services" class="py-16 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-12">
@@ -210,45 +197,66 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Service Card 1 -->
                     <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-brand-500 hover:shadow-xl transition-all duration-300 group">
                         <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-magnifying-glass-chart"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-2">上門電腦全面檢查</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">系統死機、藍畫面、開不到機、過熱降頻等疑難雜症現場檢測與硬體健康評估。</p>
-                        <div class="text-xs text-brand-700 font-bold bg-brand-50 inline-block px-2.5 py-1 rounded-md">優惠價 HK$150 起</div>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            系統死機、藍畫面、開不到機、過熱降頻等疑難雜症現場檢測與硬體健康評估。
+                        </p>
+                        <div class="text-xs text-brand-700 font-bold bg-brand-50 inline-block px-2.5 py-1 rounded-md">
+                            優惠價 HK$150 起
+                        </div>
                     </div>
 
+                    <!-- Service Card 2 -->
                     <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-brand-500 hover:shadow-xl transition-all duration-300 group">
                         <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-microchip"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-2">硬件維修及升級</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">更換SSD固態硬碟、記憶體升級、顯示卡維修、火牛/主機板更換及清潔散熱保養。</p>
-                        <div class="text-xs text-emerald-700 font-bold bg-emerald-50 inline-block px-2.5 py-1 rounded-md">更換零部件保養180天</div>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            更換SSD固態硬碟、記憶體升級、顯示卡維修、火牛/主機板更換及清潔散熱保養。
+                        </p>
+                        <div class="text-xs text-emerald-700 font-bold bg-emerald-50 inline-block px-2.5 py-1 rounded-md">
+                            更換零部件保養180天
+                        </div>
                     </div>
 
+                    <!-- Service Card 3 -->
                     <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-brand-500 hover:shadow-xl transition-all duration-300 group">
                         <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-compact-disc"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-2">軟件安裝及系統更新</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Windows / macOS 正版系統重裝、辦公軟體驅動重置、防毒軟件安裝及資料安全備份。</p>
-                        <div class="text-xs text-sky-700 font-bold bg-sky-50 inline-block px-2.5 py-1 rounded-md">包含現場資料完整備份</div>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Windows / macOS 正版系統重裝、辦公軟體驅動重置、防毒軟件安裝及資料安全備份。
+                        </p>
+                        <div class="text-xs text-sky-700 font-bold bg-sky-50 inline-block px-2.5 py-1 rounded-md">
+                            包含現場資料完整備份
+                        </div>
                     </div>
 
+                    <!-- Service Card 4 -->
                     <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 hover:border-brand-500 hover:shadow-xl transition-all duration-300 group">
                         <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
                             <i class="fa-solid fa-network-wired"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 mb-2">網絡檢查及Wi-Fi優化</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">路由器 Mesh 設定、網路斷線排查、商業網絡VLAN規劃、網絡線打頭與盲點排除。</p>
-                        <div class="text-xs text-indigo-700 font-bold bg-indigo-50 inline-block px-2.5 py-1 rounded-md">訊號盲點全面覆蓋測試</div>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            路由器 Mesh 設定、網路斷線排查、商業網絡VLAN規劃、網絡線打頭與盲點排除。
+                        </p>
+                        <div class="text-xs text-indigo-700 font-bold bg-indigo-50 inline-block px-2.5 py-1 rounded-md">
+                            訊號盲點全面覆蓋測試
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- How It Works Section -->
         <section id="workflow" class="py-16 bg-slate-100 border-y border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-12">
@@ -278,52 +286,49 @@
             </div>
         </section>
 
-        <section class="py-16 bg-white">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between mb-8">
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">我的預約訂單紀錄</h2>
-                        <p class="text-sm text-slate-500 mt-1">實時追蹤您的上門維修訂單狀態與工程師資訊</p>
-                    </div>
-                    <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
-                        + 建立新訂單
-                    </button>
-                </div>
-
-                <div id="customer-orders-list" class="space-y-4"></div>
-            </div>
+        <!-- Customer Order History / Active Order Tracker Section -->
+        <section class="py-16 bg-slate-50 border-t border-slate-200" id="customer-dashboard">
+            <!-- This section will be dynamically populated based on login status -->
         </section>
     </main>
 
+    <!-- VIEW 2: ENGINEER WORKSTATION VIEW (Only visible when logged in as Engineer) -->
     <main id="view-engineer" class="flex-grow hidden bg-slate-900 text-slate-100 py-8 px-4 sm:px-6">
         <div class="max-w-5xl mx-auto">
-            <div class="bg-slate-800 rounded-3xl border border-slate-700 p-6 shadow-2xl">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-700">
+            <!-- Mobile Container Simulation frame -->
+            <div class="bg-slate-800 rounded-3xl border border-slate-700 p-6 shadow-2xl relative overflow-hidden">
+                <!-- Background decor -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <!-- Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-700 relative z-10">
                     <div class="flex items-center gap-3">
                         <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover border-2 border-brand-500" alt="Engineer Avatar">
-                            <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-800 rounded-full"></span>
+                            <img id="eng-workstation-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover border-2 border-brand-500" alt="Engineer Avatar">
+                            <span id="eng-avatar-status" class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-800 rounded-full"></span>
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
-                                <h2 class="text-lg font-bold text-white">張立德 (高級網絡及硬體工程師)</h2>
-                                <span class="text-xs bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded border border-brand-500/30">認證工程師</span>
+                                <h2 id="eng-workstation-name" class="text-lg font-bold text-white">工程師姓名</h2>
+                                <span class="text-xs bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded border border-brand-500/30 whitespace-nowrap">認證工程師</span>
                             </div>
                             <p class="text-xs text-slate-400">主要服務分區：九龍城區、觀塘區、黃大仙區</p>
                         </div>
                     </div>
 
+                    <!-- Online Status Toggle -->
                     <div class="flex items-center gap-3 bg-slate-900 px-4 py-2 rounded-xl border border-slate-700">
-                        <span class="text-xs text-slate-300 font-medium">接單狀態：</span>
+                        <span class="text-xs text-slate-300 font-medium whitespace-nowrap">接單狀態：</span>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="engineer-online-toggle" checked class="sr-only peer" onchange="toggleEngineerStatus(this)">
                             <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
                         </label>
-                        <span id="engineer-status-label" class="text-xs text-emerald-400 font-bold">在線中 (接收派單)</span>
+                        <span id="engineer-status-label" class="text-xs text-emerald-400 font-bold whitespace-nowrap">在線中 (接收派單)</span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-slate-700">
+                <!-- Stats summary -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-slate-700 relative z-10">
                     <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700/50">
                         <p class="text-xs text-slate-400">本月完成服務</p>
                         <p class="text-2xl font-bold text-white mt-1">28 單</p>
@@ -342,23 +347,30 @@
                     </div>
                 </div>
 
-                <div class="mt-6">
-                    <div class="flex items-center justify-between mb-4">
+                <!-- Active Incoming Requests Alert Section -->
+                <div class="mt-6 relative z-10">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
                         <h3 class="text-lg font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-bell text-amber-400 animate-bounce"></i>
-                            實時可接服務訂單 (附近派遣)
+                            實時可接服務訂單
+                            <span id="eng-notification-badge" class="hidden ml-2 px-2 py-0.5 bg-red-600 text-white rounded-full text-xs animate-pulse">0</span>
                         </h3>
-                        <span class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full">距離優先排名</span>
+                        <span class="text-xs bg-slate-700 text-slate-300 px-2.5 py-1 rounded-full w-max">距離優先排名</span>
                     </div>
 
-                    <div id="engineer-jobs-container" class="space-y-4"></div>
+                    <!-- Engineer Orders List -->
+                    <div id="engineer-jobs-container" class="space-y-4">
+                        <!-- Dynamic Jobs injected via JS -->
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- VIEW 3: ENGINEER RECRUITMENT / JOIN PAGE -->
     <main id="view-join" class="flex-grow hidden bg-slate-50 py-12">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Hero Header -->
             <div class="bg-gradient-to-r from-slate-900 to-brand-900 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-10 relative overflow-hidden">
                 <div class="relative z-10 max-w-2xl">
                     <span class="bg-brand-500/30 text-brand-200 text-xs font-semibold px-3 py-1 rounded-full border border-brand-400/30">加盟招募特約工程師</span>
@@ -370,6 +382,7 @@
                 <i class="fa-solid fa-user-gear text-slate-800/40 text-9xl absolute -right-6 -bottom-6 pointer-events-none"></i>
             </div>
 
+            <!-- Perks Grid -->
             <div class="grid sm:grid-cols-3 gap-6 mb-12">
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
                     <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mx-auto mb-3">
@@ -394,6 +407,7 @@
                 </div>
             </div>
 
+            <!-- Join Application Form Container -->
             <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-10">
                 <div class="border-b border-slate-200 pb-6 mb-8">
                     <h2 class="text-2xl font-bold text-slate-900">提交工程師加盟申請</h2>
@@ -401,6 +415,7 @@
                 </div>
 
                 <form id="engineer-application-form" onsubmit="handleEngineerApply(event)" class="space-y-6">
+                    <!-- Personal Details -->
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">中文/英文全名 *</label>
@@ -418,91 +433,61 @@
                             <input type="email" required placeholder="david.chan@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">主要希望接單分區 *</label>
-                            <select required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm transition bg-white">
-                                <option value="">請選擇主要服務區域</option>
-                                <option value="九龍城區">九龍城區 / 油尖旺 / 觀塘</option>
-                                <option value="中西區">港島中西區 / 灣仔 / 東區</option>
-                                <option value="沙田區">沙田區 / 大埔 / 北區</option>
-                                <option value="荃灣區">荃灣區 / 葵青 / 屯門 / 元朗</option>
-                                <option value="全港各大區">全港各大區 (彈性移動)</option>
-                            </select>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">相關 IT 工作經驗 (年) *</label>
+                            <input type="number" min="0" required placeholder="例如：3" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm transition">
                         </div>
                     </div>
 
+                    <!-- Skills Checkboxes -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">專業技術能力 (可多選) *</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            <label class="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer bg-slate-50 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100">
-                                <input type="checkbox" checked class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
-                                <span>Windows 系統除錯/重裝</span>
+                        <label class="block text-sm font-semibold text-slate-700 mb-3">您的核心服務專長 (可多選) *</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer hover:border-brand-400 transition">
+                                <input type="checkbox" class="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500">
+                                <span class="text-sm text-slate-700">硬件組裝維修</span>
                             </label>
-                            <label class="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer bg-slate-50 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100">
-                                <input type="checkbox" checked class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
-                                <span>macOS 蘋果電腦硬體維修</span>
+                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer hover:border-brand-400 transition">
+                                <input type="checkbox" class="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500">
+                                <span class="text-sm text-slate-700">OS系統重灌設定</span>
                             </label>
-                            <label class="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer bg-slate-50 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100">
-                                <input type="checkbox" checked class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
-                                <span>桌面電腦自組機與更換硬件</span>
+                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer hover:border-brand-400 transition">
+                                <input type="checkbox" class="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500">
+                                <span class="text-sm text-slate-700">網絡/Router設定</span>
                             </label>
-                            <label class="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer bg-slate-50 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100">
-                                <input type="checkbox" class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
-                                <span>路由器 Mesh / WiFi 排查</span>
-                            </label>
-                            <label class="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer bg-slate-50 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100">
-                                <input type="checkbox" class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
-                                <span>NAS 儲存 / 數據救援</span>
-                            </label>
-                            <label class="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer bg-slate-50 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-100">
-                                <input type="checkbox" class="rounded border-slate-300 text-brand-600 focus:ring-brand-500">
-                                <span>企業網絡線拉線佈局</span>
+                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer hover:border-brand-400 transition">
+                                <input type="checkbox" class="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-500">
+                                <span class="text-sm text-slate-700">數據備份恢復</span>
                             </label>
                         </div>
                     </div>
 
+                    <!-- File Upload -->
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">相關 IT / 電腦工程從業年資 *</label>
-                        <select required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm transition bg-white">
-                            <option value="1-3年">1 - 3 年經驗</option>
-                            <option value="3-5年">3 - 5 年經驗</option>
-                            <option value="5年以上">5 年以上資深工程師</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳個人履歷 (Resume / CV) 或相關證照 *</label>
-                        <div id="resume-dropzone" onclick="document.getElementById('resume-file-input').click()" class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50 hover:bg-brand-50/30">
-                            <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx,.png,.jpg" class="hidden" onchange="handleResumeFileSelect(event)">
-                            
-                            <div id="dropzone-empty-state">
-                                <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center mx-auto mb-3 text-xl">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                                </div>
-                                <p class="text-sm font-semibold text-slate-800">點擊上傳檔案 或 將履歷檔案拖拽至此</p>
-                                <p class="text-xs text-slate-400 mt-1">支援 PDF, WORD (DOCX), PNG, JPG (最大 10MB)</p>
-                            </div>
-
-                            <div id="dropzone-file-state" class="hidden flex items-center justify-between bg-white p-3 rounded-xl border border-slate-200">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-lg">
-                                        <i class="fa-solid fa-file-pdf"></i>
-                                    </div>
-                                    <div class="text-left">
-                                        <p id="resume-filename" class="text-sm font-semibold text-slate-800">Resume_David_Chan.pdf</p>
-                                        <p id="resume-filesize" class="text-xs text-slate-400">1.2 MB • 已預備上傳</p>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="removeResumeFile(event)" class="text-slate-400 hover:text-red-500 p-2">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳個人履歷或資格證書 (PDF/Docx) *</label>
+                        <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-slate-50 transition relative group">
+                            <input type="file" id="resume-upload" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="handleFileUpload(this)">
+                            <div class="flex flex-col items-center gap-2 text-slate-500 group-hover:text-brand-600 transition">
+                                <i class="fa-solid fa-cloud-arrow-up text-3xl"></i>
+                                <p class="text-sm font-medium" id="upload-instruction">點擊或拖曳檔案至此處上傳</p>
+                                <p class="text-xs text-slate-400" id="upload-subtext">支援 .pdf, .doc, .docx (最大 5MB)</p>
                             </div>
                         </div>
+                        <div id="file-selected-display" class="hidden mt-2 p-3 bg-brand-50 border border-brand-200 rounded-lg flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-brand-800 font-medium overflow-hidden">
+                                <i class="fa-solid fa-file-pdf text-brand-600"></i>
+                                <span id="file-name" class="truncate max-w-[200px] sm:max-w-xs">MyResume.pdf</span>
+                            </div>
+                            <button type="button" onclick="removeFile()" class="text-slate-400 hover:text-red-500 transition px-2">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="pt-4">
-                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center justify-center gap-2 text-base">
+                    <!-- Submit Button -->
+                    <div class="pt-4 border-t border-slate-200">
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-brand-600/30 transition text-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i>
-                            正式提交加盟申請
+                            提交加盟申請
                         </button>
                     </div>
                 </form>
@@ -510,575 +495,817 @@
         </div>
     </main>
 
-    <div id="booking-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-100 overflow-hidden my-8">
-            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <div class="w-3 h-3 rounded-full bg-brand-400"></div>
-                    <h3 class="font-bold text-base">預約上門服務 & 智能匹配工程師</h3>
-                </div>
-                <button onclick="closeBookingModal()" class="text-slate-400 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
+    <!-- CUSTOMER BOOKING MODAL -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeBookingModal()"></div>
+        
+        <!-- Modal Content Container -->
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]">
+                
+                <!-- Close btn -->
+                <button onclick="closeBookingModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition z-10">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
-            </div>
 
-            <div class="p-6">
-                <div id="booking-step-1">
-                    <form onsubmit="startEngineerSearch(event)" class="space-y-5">
+                <!-- Modal Header -->
+                <div class="bg-slate-50 p-6 border-b border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900" id="modal-title">預約上門電腦服務</h3>
+                    <p class="text-sm text-slate-500 mt-1" id="modal-subtitle">請填寫詳細狀況，系統將為您配對合適的工程師。</p>
+                </div>
+
+                <!-- Modal Body Scrollable -->
+                <div class="p-6 overflow-y-auto flex-grow relative">
+                    
+                    <!-- STEP 1: Application Form -->
+                    <form id="booking-step-1" onsubmit="startEngineerSearch(event)" class="space-y-5 block">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">選擇需要的服務類別 *</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <label class="border border-slate-200 p-3 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-brand-500 bg-slate-50">
-                                    <input type="radio" name="service_type" value="上門檢查" checked class="text-brand-600 focus:ring-brand-500">
-                                    <span class="text-sm font-medium text-slate-800">🔍 上門故障檢查</span>
-                                </label>
-                                <label class="border border-slate-200 p-3 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-brand-500 bg-slate-50">
-                                    <input type="radio" name="service_type" value="硬件維修/更改硬件" class="text-brand-600 focus:ring-brand-500">
-                                    <span class="text-sm font-medium text-slate-800">🛠️ 硬件維修 / 升級</span>
-                                </label>
-                                <label class="border border-slate-200 p-3 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-brand-500 bg-slate-50">
-                                    <input type="radio" name="service_type" value="軟件安裝及更新" class="text-brand-600 focus:ring-brand-500">
-                                    <span class="text-sm font-medium text-slate-800">💿 軟件安裝 / 重裝系統</span>
-                                </label>
-                                <label class="border border-slate-200 p-3 rounded-xl flex items-center space-x-2 cursor-pointer hover:border-brand-500 bg-slate-50">
-                                    <input type="radio" name="service_type" value="網絡檢查及優化" class="text-brand-600 focus:ring-brand-500">
-                                    <span class="text-sm font-medium text-slate-800">🌐 網絡檢查 / Wi-Fi</span>
-                                </label>
-                            </div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">需要甚麼類型的服務？*</label>
+                            <select id="b-service-type" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm appearance-none bg-white">
+                                <option value="" disabled selected>請選擇服務範疇...</option>
+                                <option value="全面電腦檢查">全面電腦檢查 (開唔到機/死機)</option>
+                                <option value="硬件維修及更換">硬件維修及更換 (換件/升級)</option>
+                                <option value="軟件/系統重裝">軟件/系統重裝 (重灌Windows/Mac)</option>
+                                <option value="網絡連線問題">網絡連線問題 (斷網/Router設定)</option>
+                                <option value="資料備份及恢復">資料備份及恢復 (Harddisk/SSD 資料急救)</option>
+                            </select>
                         </div>
 
-                        <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">詳細狀況描述 *</label>
+                            <textarea id="b-description" required rows="3" placeholder="例如：尋日開始電腦開機不停發出咇咇聲，螢幕無畫面顯示..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm resize-none"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1.5">上門分區 *</label>
-                                <select id="order-district" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                    <option value="九龍城區">九龍城區 (土瓜灣 / 紅磡 / 啟德)</option>
-                                    <option value="中西區">中西區 (中環 / 上環 / 西環)</option>
-                                    <option value="觀塘區">觀塘區 (觀塘 / 九龍灣 / 藍田)</option>
-                                    <option value="沙田區">沙田區 (沙田 / 大圍 / 火炭)</option>
-                                    <option value="油尖旺區">油尖旺區 (旺角 / 尖沙咀 / 油麻地)</option>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">上門地區 *</label>
+                                <select id="b-district" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm appearance-none bg-white">
+                                    <option value="" disabled selected>選擇地區</option>
+                                    <option value="油尖旺區">油尖旺區</option>
+                                    <option value="深水埗區">深水埗區</option>
+                                    <option value="九龍城區">九龍城區</option>
+                                    <option value="黃大仙區">黃大仙區</option>
+                                    <option value="觀塘區">觀塘區</option>
+                                    <option value="沙田區">沙田區</option>
+                                    <option value="荃灣區">荃灣區</option>
+                                    <option value="港島中西區">港島中西區</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1.5">聯絡電話 *</label>
-                                <input type="tel" id="order-phone" value="9876 5432" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-brand-500 focus:border-brand-500 text-sm">
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">詳細地址 (選填)</label>
+                                <input type="text" id="b-address" placeholder="例如：德福花園 B座..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm">
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">詳細地址 *</label>
-                            <input type="text" id="order-address" value="九龍城馬頭圍道238號 7樓B室" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-brand-500 focus:border-brand-500 text-sm" placeholder="請填寫大廈及單位名稱">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">問題詳細描述</label>
-                            <textarea id="order-desc" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-brand-500 focus:border-brand-500 text-sm" placeholder="例如：電腦突然後出現藍畫面死機，開機有三聲嗶嗶警告聲，需要上門檢查硬體與數據備份..."></textarea>
-                        </div>
-
                         <div class="pt-2">
-                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center justify-center gap-2">
+                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-brand-600/30 transition text-base flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-radar"></i>
-                                開始自動匹配附近的工程師
+                                提交並搜尋附近工程師
                             </button>
                         </div>
                     </form>
-                </div>
 
-                <div id="booking-step-2" class="hidden py-8 text-center">
-                    <div class="relative w-32 h-32 mx-auto mb-6 flex items-center justify-center">
-                        <div class="absolute inset-0 rounded-full border-2 border-brand-500/30"></div>
-                        <div class="absolute inset-2 rounded-full border-2 border-brand-500/50"></div>
-                        <div class="absolute inset-0 rounded-full border-t-2 border-brand-600 animate-radar"></div>
-                        <i class="fa-solid fa-laptop-medical text-3xl text-brand-600"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-1">正在搜尋周邊在線工程師...</h3>
-                    <p class="text-xs text-slate-500">基於定位：<span id="searching-location-tag" class="font-semibold text-brand-600">九龍城區</span></p>
+                    <!-- STEP 2: Radar Search Animation (Hidden by default) -->
+                    <div id="booking-step-2" class="hidden flex-col items-center justify-center py-10 text-center">
+                        <div class="relative w-32 h-32 flex items-center justify-center mb-6">
+                            <!-- Radar Circle Backgrounds -->
+                            <div class="absolute inset-0 border-2 border-brand-100 rounded-full"></div>
+                            <div class="absolute inset-4 border border-brand-200 rounded-full"></div>
+                            <div class="absolute inset-8 border border-brand-200 rounded-full"></div>
+                            
+                            <!-- Radar sweep arm -->
+                            <div class="absolute inset-0 rounded-full animate-radar origin-center" style="background: conic-gradient(from 0deg, transparent 70%, rgba(2, 132, 199, 0.4) 100%);">
+                                <div class="absolute right-0 top-1/2 w-1/2 h-[1px] bg-brand-500"></div>
+                            </div>
+                            
+                            <!-- Center blip -->
+                            <div class="w-4 h-4 bg-brand-600 rounded-full z-10 relative">
+                                <div class="absolute inset-0 bg-brand-500 rounded-full animate-ping opacity-75"></div>
+                            </div>
 
-                    <div class="mt-6 max-w-xs mx-auto space-y-2 text-left">
-                        <div class="flex items-center text-xs text-slate-600 gap-2">
-                            <i class="fa-solid fa-check text-emerald-500"></i> 已定位服務區域
+                            <!-- Random map nodes -->
+                            <div class="absolute top-4 left-6 w-2 h-2 bg-emerald-400 rounded-full animate-aura" style="animation-delay: 0.2s"></div>
+                            <div class="absolute bottom-6 right-8 w-2 h-2 bg-emerald-400 rounded-full animate-aura" style="animation-delay: 1.1s"></div>
+                            <div class="absolute top-1/2 right-4 w-2 h-2 bg-sky-400 rounded-full animate-aura" style="animation-delay: 0.7s"></div>
                         </div>
-                        <div class="flex items-center text-xs text-slate-600 gap-2">
-                            <i class="fa-solid fa-check text-emerald-500"></i> 篩選具備對應技能之專家
-                        </div>
-                        <div class="flex items-center text-xs text-slate-600 gap-2 animate-pulse">
-                            <i class="fa-solid fa-spinner animate-spin text-brand-500"></i> 發送派單請求中...
-                        </div>
-                    </div>
-                </div>
-
-                <div id="booking-step-3" class="hidden space-y-6">
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-user-check"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-emerald-900 text-sm">已為您成功鎖定最佳距離工程師！</h4>
-                            <p class="text-xs text-emerald-700">工程師已收到提醒，認定下單後將即時推播發送至手機確定接單。</p>
+                        
+                        <h4 class="text-lg font-bold text-slate-800 mb-1">正在為您運算最佳配對</h4>
+                        <p class="text-slate-500 text-sm">系統正在尋找距離最近、擁有相關專長的工程師...</p>
+                        
+                        <!-- Simulated progress bar -->
+                        <div class="w-48 h-1.5 bg-slate-100 rounded-full mt-6 overflow-hidden">
+                            <div class="h-full bg-brand-500 w-full animate-pulse transition-all"></div>
                         </div>
                     </div>
 
-                    <div id="matched-engineer-card" class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-center justify-between"></div>
+                    <!-- STEP 3: Match Result (Hidden by default) -->
+                    <div id="booking-step-3" class="hidden flex-col items-center text-center py-4">
+                        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-2xl mb-4 shadow-inner shadow-emerald-200/50">
+                            <i class="fa-solid fa-check-double"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-800 mb-2">已為您找到最合適的工程師！</h4>
+                        <p class="text-slate-500 text-sm mb-6">請確認以下工程師資料並發送訂單邀請。</p>
+                        
+                        <!-- Engineer Profile Card Mini -->
+                        <div class="bg-slate-50 rounded-2xl p-4 w-full border border-slate-200 text-left flex items-start gap-4 mb-6 relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                            <img id="matched-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-14 h-14 rounded-full object-cover border border-slate-200" alt="avatar">
+                            <div class="flex-grow">
+                                <h5 class="font-bold text-slate-800 flex items-center justify-between">
+                                    <span id="matched-name">張立德 (Master Cheung)</span>
+                                    <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">1.2 km 遠</span>
+                                </h5>
+                                <div class="text-xs text-amber-500 mt-1 mb-1.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                    <span class="text-slate-500 ml-1">4.95 (182 評價)</span>
+                                </div>
+                                <p class="text-xs text-slate-500 line-clamp-1"><i class="fa-solid fa-award text-slate-400 mr-1"></i> 高級網絡及硬體工程師認證</p>
+                            </div>
+                        </div>
 
-                    <div class="bg-slate-100 p-4 rounded-xl space-y-1 text-xs text-slate-600">
-                        <p class="font-semibold text-slate-800">訂單概要：</p>
-                        <p id="summary-service">服務：上門檢查</p>
-                        <p id="summary-address">地址：九龍城馬頭圍道238號</p>
-                        <p class="text-brand-600 font-bold mt-1">預估基本費用：HK$ 150 (修復驗收後付費)</p>
+                        <div class="grid grid-cols-2 gap-3 w-full">
+                            <button type="button" onclick="openBookingModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-600 font-medium hover:bg-slate-50 transition text-sm">
+                                重新搜尋
+                            </button>
+                            <button type="button" onclick="confirmOrderAndDispatch()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg shadow-emerald-600/30 transition text-sm flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                確認派單
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="flex gap-3">
-                        <button onclick="closeBookingModal()" class="w-1/3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3 rounded-xl text-sm transition">
-                            取消
-                        </button>
-                        <button onclick="confirmOrderAndDispatch()" class="w-2/3 bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl text-sm shadow-md shadow-brand-600/30 transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            認定下單並發送手機接單通知
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8">
-            <div class="space-y-3">
-                <div class="flex items-center space-x-2 text-white font-bold text-lg">
-                    <i class="fa-solid fa-laptop-code text-brand-500"></i>
-                    <span>好易搵電腦工程有限公司</span>
-                </div>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                    全港領先的專業電腦維修與 IT 上門服務平台。結合智慧地理定位派單機制，提供最迅速透明的上門檢查與技術支援服務。
-                </p>
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-laptop-code text-brand-500"></i>
+                <span class="text-slate-300 font-semibold text-sm">好易搵電腦工程 (EasyFix IT Solutions)</span>
             </div>
-
-            <div>
-                <h4 class="text-white font-semibold text-sm mb-3">熱門服務</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="#services" onclick="switchView('customer')" class="hover:text-white transition">家庭電腦上門檢查</a></li>
-                    <li><a href="#services" onclick="switchView('customer')" class="hover:text-white transition">顯示卡/火牛/SSD 硬件維修</a></li>
-                    <li><a href="#services" onclick="switchView('customer')" class="hover:text-white transition">正版 Windows/Mac 系統重設</a></li>
-                    <li><a href="#services" onclick="switchView('customer')" class="hover:text-white transition">企業 Mesh WiFi 覆蓋及網路檢查</a></li>
-                </ul>
+            <div class="flex gap-4 text-xs">
+                <button onclick="switchView('join')" class="hover:text-brand-400 transition">成為工程師</button>
+                <span>&copy; 2026 版權所有.</span>
             </div>
-
-            <div>
-                <h4 class="text-white font-semibold text-sm mb-3">工程師專區</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><a href="#" onclick="switchView('join')" class="hover:text-white transition">申請加盟特約工程師</a></li>
-                    <li><a href="#" onclick="switchView('engineer')" class="hover:text-white transition">工程師手機接單工作台</a></li>
-                    <li><a href="#" class="hover:text-white transition">服務標準與接單守則</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-semibold text-sm mb-3">聯絡我們</h4>
-                <p class="text-xs space-y-2">
-                    <span class="block"><i class="fa-solid fa-phone mr-2 text-brand-500"></i> 客服專線: (852) 2345 6789</span>
-                    <span class="block"><i class="fa-solid fa-envelope mr-2 text-brand-500"></i> support@easyfix.hk</span>
-                    <span class="block"><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i> 香港九龍觀塘道418號創紀之城5期</span>
-                </p>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-slate-800 text-xs text-center text-slate-500">
-            &copy; 2026 好易搵電腦工程有限公司 (EasyFix Computer Engineering Co. Ltd.) 版權所有.
         </div>
     </footer>
 
-    <script>
-        const state = {
-            currentRole: 'customer',
-            engineerOnline: true,
-            engineers: [
-                {
-                    id: 'ENG-101',
-                    name: '張立德',
-                    title: '資深硬體維修專家',
-                    rating: 4.9,
-                    district: '九龍城區',
-                    distanceKm: 0.8,
-                    etaMin: 15,
-                    completedJobs: 142,
-                    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
-                },
-                {
-                    id: 'ENG-102',
-                    name: '黃智明',
-                    title: '網絡及系統工程師',
-                    rating: 4.8,
-                    district: '九龍城區',
-                    distanceKm: 1.4,
-                    etaMin: 22,
-                    completedJobs: 98,
-                    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80'
-                }
-            ],
-            orders: [
-                {
-                    id: 'ORD-20260807-01',
-                    service: '上門檢查',
-                    customerName: '陳先生',
-                    district: '九龍城區',
-                    address: '九龍城馬頭圍道238號 7樓B室',
-                    phone: '9876 5432',
-                    desc: '電腦突然後出現藍畫面死機，開機有警告聲。',
-                    status: 'PENDING_ACCEPT',
-                    engineer: {
-                        name: '張立德',
-                        phone: '9123 8888',
-                        eta: '15 分鐘'
-                    },
-                    createdTime: '10分鐘前'
-                }
-            ],
-            tempOrder: null,
-            resumeFile: null
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderCustomerOrders();
-            renderEngineerJobs();
-            renderLiveFeed();
-        });
-
-        function switchView(viewName) {
-            state.currentRole = viewName;
-            const customerView = document.getElementById('view-customer');
-            const engineerView = document.getElementById('view-engineer');
-            const joinView = document.getElementById('view-join');
-
-            const btnCustomer = document.getElementById('btn-view-customer');
-            const btnEngineer = document.getElementById('btn-view-engineer');
-            const btnJoin = document.getElementById('btn-view-join');
-
-            customerView.classList.add('hidden');
-            engineerView.classList.add('hidden');
-            joinView.classList.add('hidden');
-
-            [btnCustomer, btnEngineer, btnJoin].forEach(b => {
-                b.className = "px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700";
-            });
-
-            if (viewName === 'customer') {
-                customerView.classList.remove('hidden');
-                btnCustomer.className = "px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 bg-brand-600 text-white shadow-sm";
-                document.getElementById('user-status-display').style.display = 'flex';
-            } else if (viewName === 'engineer') {
-                engineerView.classList.remove('hidden');
-                btnEngineer.className = "px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 bg-brand-600 text-white shadow-sm";
-                document.getElementById('eng-notification-badge').classList.add('hidden');
-                renderEngineerJobs();
-            } else if (viewName === 'join') {
-                joinView.classList.remove('hidden');
-                btnJoin.className = "px-3 py-1 rounded-md text-xs font-medium transition-all duration-200 bg-brand-600 text-white shadow-sm";
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showToast(message, type = 'info', title = '系統通知') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `pointer-events-auto bg-slate-900 border text-white p-4 rounded-2xl shadow-2xl flex items-start gap-3 transition-all duration-300 transform translate-y-2 opacity-0`;
-            
-            let iconClass = 'fa-circle-info text-brand-400';
-            let borderColor = 'border-brand-500/50';
-
-            if (type === 'success') {
-                iconClass = 'fa-circle-check text-emerald-400';
-                borderColor = 'border-emerald-500/50';
-            } else if (type === 'alert') {
-                iconClass = 'fa-bell text-amber-400 animate-bounce';
-                borderColor = 'border-amber-500/50';
-            }
-
-            toast.classList.add(borderColor);
-            toast.innerHTML = `
-                <div class="text-xl shrink-0 mt-0.5"><i class="fa-solid ${iconClass}"></i></div>
-                <div class="flex-grow">
-                    <h5 class="font-bold text-sm text-white">${title}</h5>
-                    <p class="text-xs text-slate-300 mt-0.5 leading-snug">${message}</p>
-                </div>
-                <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white text-sm">
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeLoginModal()"></div>
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative">
+                <button onclick="closeLoginModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition z-10">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
-            `;
+                <div class="bg-brand-600 p-8 text-center">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-white text-3xl mx-auto mb-4 backdrop-blur-md">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">會員 / 工程師登入</h3>
+                    <p class="text-brand-100 mt-2 text-sm">系統將自動識別您的身份權限</p>
+                </div>
+                <div class="p-8">
+                    <form onsubmit="handleLogin(event)" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">註冊電話號碼</label>
+                            <input type="tel" id="login-phone" required placeholder="請輸入電話號碼" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm" value="98765432">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">密碼</label>
+                            <input type="password" id="login-password" required placeholder="請輸入密碼" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-sm" value="password123">
+                        </div>
+                        
+                        <!-- Login Hints for Demo -->
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs text-slate-500 mt-2">
+                            <p class="font-bold text-slate-700 mb-1"><i class="fa-solid fa-lightbulb text-amber-500"></i> 測試帳號說明：</p>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>客戶登入:</strong> 電話填 <span class="text-brand-600 font-mono">98765432</span></li>
+                                <li><strong>工程師登入:</strong> 電話填 <span class="text-brand-600 font-mono">90001111</span></li>
+                            </ul>
+                        </div>
 
+                        <div class="pt-2">
+                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-brand-600/30 transition text-base">
+                                登入系統
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic (JavaScript) -->
+    <script>
+        // --- Dummy Data & State ---
+        const MOCK_ENGINEERS = [
+            { id: 1, name: "張立德 (Master Cheung)", role: "高級網絡及硬體工程師", rating: "4.95", reviews: 182, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" },
+            { id: 2, name: "李志雄 (Master Lee)", role: "資深系統維修專員", rating: "4.8", reviews: 95, img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80" }
+        ];
+
+        // State object to hold global application data
+        const state = {
+            currentView: 'customer', // 'customer' | 'engineer' | 'join'
+            currentUser: null, // null | { role: 'customer', ... } | { role: 'engineer', ... }
+            isEngineerOnline: true,
+            engineerActiveJobCount: 0,
+            pendingBookingData: null,
+            orders: [
+                // Example of an existing completed order for the customer
+                { id: 'ORD-9821', type: '硬件維修及更換', district: '九龍城區', status: 'COMPLETED', date: '2026-08-05', engName: '陳師傅', amount: 'HK$ 450' }
+            ]
+        };
+
+        // UI Element References
+        const viewCustomer = document.getElementById('view-customer');
+        const viewEngineer = document.getElementById('view-engineer');
+        const viewJoin = document.getElementById('view-join');
+        const userStatusDisplay = document.getElementById('user-status-display');
+        const mainNavLinks = document.querySelectorAll('.nav-customer-only');
+        const modal = document.getElementById('booking-modal');
+        const step1 = document.getElementById('booking-step-1');
+        const step2 = document.getElementById('booking-step-2');
+        const step3 = document.getElementById('booking-step-3');
+        const loginModal = document.getElementById('login-modal');
+
+        // --- Toast Notification Helper ---
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let icon = 'fa-circle-info';
+            let colorCls = 'border-sky-500 bg-slate-800 text-sky-400';
+            
+            if (type === 'success') {
+                icon = 'fa-circle-check';
+                colorCls = 'border-emerald-500 bg-slate-800 text-emerald-400';
+            } else if (type === 'warning') {
+                icon = 'fa-triangle-exclamation';
+                colorCls = 'border-amber-500 bg-slate-800 text-amber-400';
+            }
+
+            toast.className = `flex items-start gap-3 p-4 rounded-xl border-l-4 shadow-lg transform transition-all duration-300 translate-x-full opacity-0 ${colorCls}`;
+            toast.innerHTML = `
+                <div class="mt-0.5 text-lg"><i class="fa-solid ${icon}"></i></div>
+                <div>
+                    <h5 class="text-sm font-bold text-white mb-0.5">${title}</h5>
+                    <p class="text-xs opacity-90">${message}</p>
+                </div>
+            `;
+            
             container.appendChild(toast);
-            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+            
+            setTimeout(() => toast.classList.remove('translate-x-full', 'opacity-0'), 10);
             setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-2');
+                toast.classList.add('translate-x-full', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
-            }, 5000);
+            }, 4000);
         }
 
-        function renderLiveFeed() {
-            const container = document.getElementById('live-orders-feed');
-            const sampleFeeds = [
-                { time: '2分鐘前', area: '中環國際金融中心', service: '網絡檢查及優化', status: '工程師前往中' },
-                { time: '7分鐘前', area: '九龍城馬頭圍道', service: '上門檢查', status: '等待接單確認' },
-                { time: '15分鐘前', area: '沙田第一城', service: '硬件維修/更改硬件', status: '服務進行中' },
-                { time: '28分鐘前', area: '觀塘創紀之城', service: '軟件安裝及更新', status: '已完成維修' }
-            ];
-
-            container.innerHTML = sampleFeeds.map(item => `
-                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/60 flex items-center justify-between text-xs">
-                    <div>
-                        <div class="font-semibold text-slate-200">${item.service} • ${item.area}</div>
-                        <div class="text-slate-400 text-[11px] mt-0.5"><i class="fa-regular fa-clock mr-1"></i>${item.time}</div>
-                    </div>
-                    <span class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-brand-500/20 text-brand-300 border border-brand-500/30">
-                        ${item.status}
-                    </span>
-                </div>
-            `).join('');
-        }
-
-        function openBookingModal() {
-            document.getElementById('booking-step-1').classList.remove('hidden');
-            document.getElementById('booking-step-2').classList.add('hidden');
-            document.getElementById('booking-step-3').classList.add('hidden');
-            document.getElementById('booking-modal').classList.remove('hidden');
-        }
-
-        function closeBookingModal() {
-            document.getElementById('booking-modal').classList.add('hidden');
-        }
-
-        function startEngineerSearch(event) {
-            event.preventDefault();
-            const service = document.querySelector('input[name="service_type"]:checked').value;
-            const district = document.getElementById('order-district').value;
-            const phone = document.getElementById('order-phone').value;
-            const address = document.getElementById('order-address').value;
-            const desc = document.getElementById('order-desc').value;
-
-            state.tempOrder = {
-                id: 'ORD-' + Date.now().toString().slice(-6),
-                service,
-                district,
-                address,
-                phone,
-                desc,
-                customerName: '陳先生'
-            };
-
-            document.getElementById('booking-step-1').classList.add('hidden');
-            document.getElementById('booking-step-2').classList.remove('hidden');
-            document.getElementById('searching-location-tag').textContent = district;
-
-            setTimeout(() => {
-                showMatchedEngineerStep();
-            }, 2000);
-        }
-
-        function showMatchedEngineerStep() {
-            document.getElementById('booking-step-2').classList.add('hidden');
-            document.getElementById('booking-step-3').classList.remove('hidden');
-
-            const eng = state.engineers[0];
-
-            document.getElementById('matched-engineer-card').innerHTML = `
-                <div class="flex items-center space-x-3">
-                    <img src="${eng.avatar}" class="w-12 h-12 rounded-full object-cover border-2 border-brand-500" alt="Engineer">
-                    <div>
-                        <h5 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                            ${eng.name}
-                            <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.2 rounded-full">距離最近 ${eng.distanceKm} km</span>
-                        </h5>
-                        <p class="text-xs text-slate-500">${eng.title} • 評分 ${eng.rating} ★ (${eng.completedJobs}單)</p>
-                        <p class="text-xs text-brand-600 font-semibold mt-0.5">預計到達時間: 約 ${eng.etaMin} 分鐘</p>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('summary-service').textContent = `服務：${state.tempOrder.service}`;
-            document.getElementById('summary-address').textContent = `地址：${state.tempOrder.address}`;
-        }
-
-        function confirmOrderAndDispatch() {
-            const eng = state.engineers[0];
-            const newOrder = {
-                ...state.tempOrder,
-                status: 'PENDING_ACCEPT',
-                engineer: {
-                    name: eng.name,
-                    phone: '9123 8888',
-                    eta: eng.etaMin + ' 分鐘'
-                },
-                createdTime: '剛剛'
-            };
-
-            state.orders.unshift(newOrder);
-            closeBookingModal();
-            renderCustomerOrders();
-            showToast(`已向工程師「${eng.name}」發送手機接單通知訊息！`, 'alert', '下單確認成功');
-            document.getElementById('eng-notification-badge').classList.remove('hidden');
-            renderEngineerJobs();
-        }
-
-        function renderCustomerOrders() {
-            const container = document.getElementById('customer-orders-list');
-            if (state.orders.length === 0) {
-                container.innerHTML = `<p class="text-center text-slate-400 py-6">尚無預約紀錄</p>`;
+        // --- View Switching Logic ---
+        function switchView(viewName) {
+            // Guard clause: Only engineers can access engineer view
+            if (viewName === 'engineer' && (!state.currentUser || state.currentUser.role !== 'engineer')) {
+                showToast('權限不足', '此頁面僅限已登入的工程師存取', 'warning');
                 return;
             }
 
-            container.innerHTML = state.orders.map(order => {
-                let statusBadge = '';
-                if (order.status === 'PENDING_ACCEPT') {
-                    statusBadge = `<span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold animate-pulse"><i class="fa-solid fa-spinner animate-spin mr-1"></i>工程師手機確認接單中</span>`;
-                } else if (order.status === 'ACCEPTED') {
-                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-semibold"><i class="fa-solid fa-check mr-1"></i>工程師已接單，前往中</span>`;
-                } else {
-                    statusBadge = `<span class="bg-slate-200 text-slate-700 px-3 py-1 rounded-full text-xs font-semibold">已完成</span>`;
-                }
+            state.currentView = viewName;
+            
+            // Hide all views
+            viewCustomer.classList.add('hidden');
+            viewEngineer.classList.add('hidden');
+            viewJoin.classList.add('hidden');
+            
+            // Show selected view and trigger specific renders
+            if (viewName === 'customer') {
+                viewCustomer.classList.remove('hidden');
+                mainNavLinks.forEach(el => el.classList.remove('hidden'));
+                renderCustomerDashboard();
+            } else if (viewName === 'engineer') {
+                viewEngineer.classList.remove('hidden');
+                mainNavLinks.forEach(el => el.classList.add('hidden')); // Hide customer links for engineers
+                renderEngineerDashboard();
+            } else if (viewName === 'join') {
+                viewJoin.classList.remove('hidden');
+                mainNavLinks.forEach(el => el.classList.remove('hidden'));
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-                return `
-                    <div class="bg-slate-50 rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition">
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 pb-3 border-b border-slate-200">
-                            <div>
-                                <span class="text-xs font-mono text-slate-400">訂單編號: ${order.id}</span>
-                                <h4 class="text-base font-bold text-slate-900 mt-0.5">${order.service}</h4>
-                            </div>
-                            <div>${statusBadge}</div>
-                        </div>
+        function handleLogoClick() {
+            // Route back to appropriate home based on role
+            if (state.currentUser && state.currentUser.role === 'engineer') {
+                switchView('engineer');
+            } else {
+                switchView('customer');
+            }
+        }
 
-                        <div class="grid sm:grid-cols-2 gap-4 mt-3 text-xs text-slate-600">
-                            <div>
-                                <p><span class="font-semibold text-slate-700">上門地址：</span>${order.address}</p>
-                                <p class="mt-1"><span class="font-semibold text-slate-700">問題說明：</span>${order.desc || '無特別說明'}</p>
-                            </div>
-                            <div class="bg-white p-3 rounded-xl border border-slate-200">
-                                <p class="font-semibold text-slate-800">指派工程師資訊：</p>
-                                <p class="mt-1">工程師：${order.engineer.name} (${order.engineer.phone})</p>
-                                <p class="text-brand-600 font-semibold">預計到達時間：${order.engineer.eta}</p>
-                            </div>
+        // --- Authentication & Role Logic ---
+        function openLoginModal() { loginModal.classList.remove('hidden'); }
+        function closeLoginModal() { loginModal.classList.add('hidden'); }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const phoneInput = document.getElementById('login-phone').value.trim();
+            
+            if (phoneInput === '90001111') {
+                // Login as Engineer
+                state.currentUser = {
+                    role: 'engineer',
+                    name: '張立德 (Master Cheung)',
+                    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
+                };
+                showToast('登入成功', '歡迎回到工程師工作台', 'success');
+                switchView('engineer');
+            } else {
+                // Login as Customer (default fallback for demo)
+                state.currentUser = {
+                    role: 'customer',
+                    name: '陳先生',
+                    phone: phoneInput,
+                    district: '九龍城區',
+                    memberSince: '2025-01-15'
+                };
+                showToast('登入成功', `歡迎回來，${state.currentUser.name}`, 'success');
+                switchView('customer');
+            }
+            
+            closeLoginModal();
+            renderHeader();
+        }
+
+        function handleLogout() {
+            state.currentUser = null;
+            showToast('登出成功', '您已成功登出系統', 'info');
+            renderHeader();
+            switchView('customer'); // Always fallback to public customer view
+        }
+
+        // --- Header Rendering ---
+        function renderHeader() {
+            if (!state.currentUser) {
+                // Not Logged In
+                userStatusDisplay.innerHTML = `
+                    <button onclick="openLoginModal()" class="text-brand-600 hover:text-brand-700 text-sm font-semibold transition px-3">
+                        登入 / 註冊
+                    </button>
+                    <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm shadow-brand-600/30 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>訪客預約</span>
+                    </button>
+                `;
+            } else if (state.currentUser.role === 'customer') {
+                // Logged in as Customer
+                userStatusDisplay.innerHTML = `
+                    <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full border border-slate-200 hidden sm:flex items-center gap-2">
+                        <i class="fa-solid fa-user-check text-emerald-500"></i>
+                        <span>${state.currentUser.name}</span>
+                    </span>
+                    <button onclick="handleLogout()" class="text-slate-500 hover:text-slate-700 text-sm font-medium transition px-2">登出</button>
+                    <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm shadow-brand-600/30 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-wrench"></i>
+                        <span>即時預約</span>
+                    </button>
+                `;
+            } else if (state.currentUser.role === 'engineer') {
+                // Logged in as Engineer
+                userStatusDisplay.innerHTML = `
+                    <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-full border border-slate-700 hidden sm:flex items-center gap-2">
+                        <i class="fa-solid fa-helmet-safety text-amber-500"></i>
+                        <span>工程師: ${state.currentUser.name}</span>
+                    </span>
+                    <button onclick="handleLogout()" class="text-slate-500 hover:text-slate-700 text-sm font-medium transition px-2">登出系統</button>
+                `;
+            }
+        }
+
+        // --- Customer Side Rendering ---
+        function renderCustomerDashboard() {
+            const container = document.getElementById('customer-dashboard');
+            
+            if (!state.currentUser || state.currentUser.role !== 'customer') {
+                container.innerHTML = `
+                    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-lock text-3xl text-slate-400"></i>
                         </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-3">請先登入以查看紀錄</h2>
+                        <p class="text-slate-500 mb-8 max-w-md mx-auto">登入您的客戶帳戶以查看詳細的個人資料、歷史維修紀錄及追蹤中的訂單狀態。</p>
+                        <button onclick="openLoginModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-brand-600/30 transition text-base inline-flex items-center gap-2">
+                            <i class="fa-solid fa-user"></i> 立即登入
+                        </button>
                     </div>
                 `;
+                return;
+            }
+
+            // Customer Dashboard
+            container.innerHTML = `
+                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Profile Card -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sticky top-24">
+                                <h3 class="text-lg font-bold text-slate-900 mb-4 pb-4 border-b border-slate-100">我的帳戶資料</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500">聯絡人名稱</p>
+                                            <p class="font-semibold text-slate-800">${state.currentUser.name}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500">聯絡電話</p>
+                                            <p class="font-semibold text-slate-800">${state.currentUser.phone}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center shrink-0">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500">常用地區</p>
+                                            <p class="font-semibold text-slate-800">${state.currentUser.district}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orders List -->
+                        <div class="lg:col-span-2">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+                                <div>
+                                    <h2 class="text-2xl font-bold text-slate-900">維修服務紀錄</h2>
+                                    <p class="text-sm text-slate-500 mt-1">實時追蹤您的上門維修訂單狀態與工程師資訊</p>
+                                </div>
+                                <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition flex items-center gap-2 shrink-0">
+                                    <i class="fa-solid fa-plus"></i> 新增預約
+                                </button>
+                            </div>
+                            <div id="customer-orders-list-inner" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            renderCustomerOrdersList();
+        }
+
+        function renderCustomerOrdersList() {
+            const container = document.getElementById('customer-orders-list-inner');
+            if(!container) return;
+
+            if(state.orders.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                        <i class="fa-solid fa-clipboard-list text-4xl text-slate-300 mb-3"></i>
+                        <p class="text-slate-500 text-sm">尚無任何預約紀錄。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sortedOrders = [...state.orders].reverse();
+            
+            container.innerHTML = sortedOrders.map(order => {
+                const isActive = order.status === 'SEARCHING' || order.status === 'PENDING_ACCEPT' || order.status === 'ACCEPTED';
+                const statusColor = isActive ? 'text-amber-600 bg-amber-50 border-amber-200' : 'text-slate-600 bg-slate-100 border-slate-200';
+                const statusIcon = order.status === 'COMPLETED' ? '<i class="fa-solid fa-check text-emerald-500"></i>' : 
+                                   (order.status === 'ACCEPTED' ? '<i class="fa-solid fa-person-walking-arrow-right text-brand-500"></i>' : '<i class="fa-solid fa-spinner fa-spin text-amber-500"></i>');
+                
+                let statusText = '處理中';
+                if(order.status === 'COMPLETED') statusText = '已完成';
+                if(order.status === 'PENDING_ACCEPT') statusText = '等待工程師接單';
+                if(order.status === 'ACCEPTED') statusText = '工程師將於稍後抵達';
+                if(order.status === 'REJECTED') statusText = '需重新指派';
+
+                return `
+                <div class="bg-white border ${isActive ? 'border-amber-300 shadow-md ring-1 ring-amber-300/50' : 'border-slate-200'} rounded-2xl p-5 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between transition-all">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-xl text-brand-600 shrink-0">
+                            ${isActive ? '<i class="fa-solid fa-wrench"></i>' : '<i class="fa-solid fa-receipt"></i>'}
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                <span class="font-bold text-slate-900">${order.type}</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-md border ${statusColor} font-semibold">${statusText}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-1">單號：${order.id} | 日期：${order.date}</p>
+                            <p class="text-sm text-slate-600 bg-slate-50 p-2 rounded-lg mt-2 line-clamp-2" title="${order.desc || ''}">${order.desc || '常規維修'}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-left sm:text-right w-full sm:w-auto mt-2 sm:mt-0 pt-3 sm:pt-0 border-t sm:border-0 border-slate-100 shrink-0">
+                        <p class="text-xs text-slate-500 mb-1">負責工程師</p>
+                        <p class="font-semibold text-slate-800 text-sm flex items-center sm:justify-end gap-1.5">
+                            ${statusIcon} ${order.engName || '系統指派中...'}
+                        </p>
+                        ${order.amount ? `<p class="font-bold text-brand-600 mt-2 bg-brand-50 inline-block px-3 py-1 rounded-lg">${order.amount}</p>` : ''}
+                    </div>
+                </div>
+                `;
             }).join('');
+        }
+
+        // --- Booking Modal Logic ---
+        function openBookingModal() {
+            modal.classList.remove('hidden');
+            step1.classList.remove('hidden');
+            step2.classList.add('hidden');
+            step3.classList.add('hidden');
+            document.getElementById('modal-title').innerText = '預約上門電腦服務';
+            document.getElementById('modal-subtitle').innerText = '請填寫詳細狀況，系統將為您配對合適的工程師。';
+            document.getElementById('booking-step-1').reset();
+        }
+
+        function closeBookingModal() { modal.classList.add('hidden'); }
+
+        function startEngineerSearch(e) {
+            e.preventDefault();
+            
+            state.pendingBookingData = {
+                type: document.getElementById('b-service-type').value,
+                desc: document.getElementById('b-description').value,
+                district: document.getElementById('b-district').value,
+                address: document.getElementById('b-address').value
+            };
+
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+            step2.classList.add('flex');
+            
+            document.getElementById('modal-title').innerText = '系統智能派單中...';
+            document.getElementById('modal-subtitle').innerText = '運用 AI 計算距離與工程師空閒狀態';
+
+            setTimeout(() => {
+                const eng = MOCK_ENGINEERS[0];
+                document.getElementById('matched-name').innerText = eng.name;
+                document.getElementById('matched-avatar').src = eng.img;
+                
+                step2.classList.add('hidden');
+                step2.classList.remove('flex');
+                step3.classList.remove('hidden');
+                step3.classList.add('flex');
+                
+                document.getElementById('modal-title').innerText = '配對成功';
+                document.getElementById('modal-subtitle').innerText = '請確認工程師資料並發出正式派單請求';
+            }, 2500);
+        }
+
+        function confirmOrderAndDispatch() {
+            const newOrderId = `ORD-${Math.floor(1000 + Math.random() * 9000)}`;
+            const today = new Date().toISOString().split('T')[0];
+            
+            state.orders.push({
+                id: newOrderId,
+                type: state.pendingBookingData.type,
+                desc: state.pendingBookingData.desc,
+                district: state.pendingBookingData.district,
+                address: state.pendingBookingData.address,
+                status: 'PENDING_ACCEPT',
+                date: today,
+                engName: '張立德 (Master Cheung)'
+            });
+            
+            state.pendingBookingData = null;
+            closeBookingModal();
+            showToast('訂單已發送！', '正在等待工程師確認接單。', 'success');
+            
+            if (state.currentUser && state.currentUser.role === 'customer') {
+                renderCustomerDashboard();
+            }
+        }
+
+        // --- Engineer Side Rendering ---
+        function renderEngineerDashboard() {
+            if (state.currentUser && state.currentUser.role === 'engineer') {
+                document.getElementById('eng-workstation-name').innerText = state.currentUser.name;
+                document.getElementById('eng-workstation-avatar').src = state.currentUser.avatar;
+            }
+            renderEngineerJobs();
         }
 
         function renderEngineerJobs() {
             const container = document.getElementById('engineer-jobs-container');
+            const pendingJobs = state.orders.filter(o => o.status === 'PENDING_ACCEPT');
+            const acceptedJobs = state.orders.filter(o => o.status === 'ACCEPTED');
+            
+            state.engineerActiveJobCount = pendingJobs.length;
+            const badge = document.getElementById('eng-notification-badge');
+            if(badge) {
+                if(state.engineerActiveJobCount > 0) {
+                    badge.innerText = state.engineerActiveJobCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
 
-            if (!state.engineerOnline) {
+            if(!state.isEngineerOnline) {
                 container.innerHTML = `
-                    <div class="text-center py-12 text-slate-500 bg-slate-900/50 rounded-2xl border border-dashed border-slate-700">
-                        <i class="fa-solid fa-moon text-3xl mb-2 text-slate-600"></i>
-                        <p>您目前處於離線狀態，無法接收手機派單資訊。</p>
+                    <div class="bg-slate-800/80 border-2 border-dashed border-slate-700 rounded-2xl p-8 text-center text-slate-400">
+                        <i class="fa-solid fa-moon text-4xl mb-3 text-slate-600"></i>
+                        <p>您已暫停接單。切換上線狀態以接收最新系統派單。</p>
                     </div>
                 `;
                 return;
             }
 
-            const pendingOrders = state.orders.filter(o => o.status === 'PENDING_ACCEPT' || o.status === 'ACCEPTED');
+            let html = '';
 
-            if (pendingOrders.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-slate-400 bg-slate-900/50 rounded-2xl border border-slate-700/50">
-                        <i class="fa-solid fa-circle-check text-emerald-400 text-2xl mb-2"></i>
-                        <p class="text-sm">目前周邊尚無待接訂單，系統正在自動搜尋中...</p>
+            acceptedJobs.forEach(job => {
+                html += `
+                <div class="bg-brand-900/40 border border-brand-500/50 rounded-2xl p-5 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-brand-500"></div>
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <span class="px-2 py-0.5 rounded bg-brand-500/20 text-brand-300 text-[10px] font-bold border border-brand-500/30">已接單 (前往中)</span>
+                            <h4 class="font-bold text-white text-lg mt-1">${job.type}</h4>
+                        </div>
+                        <span class="text-xs text-slate-400">#${job.id}</span>
+                    </div>
+                    
+                    <div class="text-sm text-slate-300 space-y-2 mb-4 bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+                        <p><i class="fa-solid fa-location-dot text-brand-400 w-4"></i> <strong>地區：</strong> ${job.district}</p>
+                        <p><i class="fa-solid fa-map-pin text-brand-400 w-4"></i> <strong>詳細：</strong> ${job.address || '未提供詳細地址'}</p>
+                        <p class="text-xs text-slate-400 border-t border-slate-700/50 pt-2 mt-2"><i class="fa-solid fa-clipboard-list w-4"></i> ${job.desc}</p>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <button onclick="showToast('聯絡客戶', '正在撥打客戶電話...', 'info')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 rounded-xl transition text-sm">聯絡客戶</button>
+                        <button onclick="completeJob('${job.id}')" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white font-bold py-2 rounded-xl shadow-lg transition text-sm">完成訂單</button>
+                    </div>
+                </div>
+                `;
+            });
+
+            pendingJobs.forEach(job => {
+                html += `
+                <div class="bg-slate-800 border border-amber-500/50 rounded-2xl p-5 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-amber-500/10 rounded-bl-full pointer-events-none"></div>
+                    <div class="absolute top-2 right-2 text-amber-500 text-xs font-bold animate-pulse"><i class="fa-solid fa-clock"></i> 待確認</div>
+                    
+                    <h4 class="font-bold text-white text-lg mb-1">${job.type}</h4>
+                    <p class="text-xs text-amber-400 mb-3"><i class="fa-solid fa-location-arrow"></i> 距離您目前位置約 1.2 公里</p>
+                    
+                    <div class="text-sm text-slate-300 space-y-1 mb-4">
+                        <p><span class="text-slate-500">地區：</span> ${job.district}</p>
+                        <p class="line-clamp-2 text-xs text-slate-400 mt-2 bg-slate-900/50 p-2 rounded">${job.desc}</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="respondToJob('${job.id}', 'reject')" class="border border-slate-600 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 text-slate-300 font-medium py-2 rounded-xl transition text-sm">拒絕接單</button>
+                        <button onclick="respondToJob('${job.id}', 'accept')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl shadow-lg shadow-emerald-600/20 transition text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-bolt"></i> 立即接單
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            if (html === '') {
+                html = `
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 text-center text-slate-400">
+                        <i class="fa-solid fa-mug-hot text-3xl mb-3 text-slate-600"></i>
+                        <p class="text-sm">附近暫時沒有新訂單，請耐心等候系統派發。</p>
                     </div>
                 `;
-                return;
             }
 
-            container.innerHTML = pendingOrders.map(order => {
-                const isPending = order.status === 'PENDING_ACCEPT';
-
-                return `
-                    <div class="bg-slate-900 rounded-2xl border ${isPending ? 'border-amber-500/80 shadow-lg shadow-amber-500/10 animate-pulse' : 'border-emerald-500/60'} p-5 transition">
-                        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                            <span class="text-xs bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded font-mono">
-                                🔔 收到手機即時派單訊息 (${order.createdTime})
-                            </span>
-                            <span class="text-xs text-slate-400">預估收益: HK$ 150 + 零件工本</span>
-                        </div>
-
-                        <div class="py-3">
-                            <h4 class="text-lg font-bold text-white">${order.service}</h4>
-                            <p class="text-sm text-slate-300 mt-1"><i class="fa-solid fa-location-dot text-brand-400 mr-1.5"></i>${order.address}</p>
-                            <p class="text-xs text-slate-400 mt-2 bg-slate-800 p-2.5 rounded-xl border border-slate-700">
-                                <span class="text-slate-300 font-semibold">客戶問題描述:</span> ${order.desc}
-                            </p>
-                        </div>
-
-                        <div class="pt-2 flex gap-3">
-                            ${isPending ? `
-                                <button onclick="acceptOrder('${order.id}')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-mobile-screen-button"></i>
-                                    在手機點擊確定接單
-                                </button>
-                            ` : `
-                                <div class="w-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold py-2 px-4 rounded-xl text-xs text-center flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                                    您已確定接單！已獲得客戶電話 (${order.phone})，隨時準備前往服務
-                                </div>
-                            `}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function acceptOrder(orderId) {
-            const order = state.orders.find(o => o.id === orderId);
-            if (order) {
-                order.status = 'ACCEPTED';
-                renderEngineerJobs();
-                renderCustomerOrders();
-                showToast(`您已成功接單 (${order.service})，系統已向客戶通知您將於 15 分鐘內到達！`, 'success', '接單成功');
-            }
+            container.innerHTML = html;
         }
 
         function toggleEngineerStatus(checkbox) {
-            state.engineerOnline = checkbox.checked;
+            state.isEngineerOnline = checkbox.checked;
             const label = document.getElementById('engineer-status-label');
-            if (checkbox.checked) {
-                label.textContent = "在線中 (接收派單)";
-                label.className = "text-xs text-emerald-400 font-bold";
-                showToast('工程師狀態已切換為「在線中」', 'success');
+            const avatarStatus = document.getElementById('eng-avatar-status');
+            
+            if(state.isEngineerOnline) {
+                label.innerText = '在線中 (接收派單)';
+                label.className = 'text-xs text-emerald-400 font-bold whitespace-nowrap';
+                avatarStatus.className = 'absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-800 rounded-full';
             } else {
-                label.textContent = "離線 (停止派單)";
-                label.className = "text-xs text-slate-400 font-bold";
-                showToast('工程師狀態已切換為「離線」', 'info');
+                label.innerText = '已休息 (停止派單)';
+                label.className = 'text-xs text-slate-500 font-bold whitespace-nowrap';
+                avatarStatus.className = 'absolute bottom-0 right-0 w-3.5 h-3.5 bg-slate-500 border-2 border-slate-800 rounded-full';
             }
             renderEngineerJobs();
         }
 
-        function handleResumeFileSelect(event) {
-            const file = event.target.files[0];
+        function respondToJob(orderId, action) {
+            const orderIndex = state.orders.findIndex(o => o.id === orderId);
+            if(orderIndex !== -1) {
+                if(action === 'accept') {
+                    state.orders[orderIndex].status = 'ACCEPTED';
+                    showToast('接單成功！', '請盡快聯絡客戶確認上門時間。', 'success');
+                } else {
+                    state.orders[orderIndex].status = 'REJECTED';
+                    showToast('已拒絕訂單', '系統將自動指派給其他工程師。', 'info');
+                }
+                renderEngineerJobs();
+            }
+        }
+
+        function completeJob(orderId) {
+            const orderIndex = state.orders.findIndex(o => o.id === orderId);
+            if(orderIndex !== -1) {
+                state.orders[orderIndex].status = 'COMPLETED';
+                state.orders[orderIndex].amount = 'HK$ ' + (Math.floor(Math.random() * 500) + 200);
+                showToast('訂單完成！', '服務費已記錄入帳。', 'success');
+                renderEngineerJobs();
+            }
+        }
+
+        // --- Join Form Logic ---
+        function handleFileUpload(input) {
+            const file = input.files[0];
+            const displayBlock = document.getElementById('file-selected-display');
+            const nameSpan = document.getElementById('file-name');
+            const uploadBlock = input.parentElement;
+
             if (file) {
-                state.resumeFile = file;
-                document.getElementById('dropzone-empty-state').classList.add('hidden');
-                document.getElementById('dropzone-file-state').classList.remove('hidden');
-                document.getElementById('resume-filename').textContent = file.name;
-                document.getElementById('resume-filesize').textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB • 檔案已備妥';
+                nameSpan.innerText = file.name;
+                displayBlock.classList.remove('hidden');
+                uploadBlock.classList.add('border-brand-500', 'bg-brand-50/50');
+            } else {
+                removeFile();
             }
         }
 
-        function removeResumeFile(event) {
-            event.stopPropagation();
-            state.resumeFile = null;
-            document.getElementById('resume-file-input').value = '';
-            document.getElementById('dropzone-empty-state').classList.remove('hidden');
-            document.getElementById('dropzone-file-state').classList.add('hidden');
+        function removeFile() {
+            const input = document.getElementById('resume-upload');
+            const displayBlock = document.getElementById('file-selected-display');
+            const uploadBlock = input.parentElement;
+            
+            input.value = '';
+            displayBlock.classList.add('hidden');
+            uploadBlock.classList.remove('border-brand-500', 'bg-brand-50/50');
         }
 
-        function handleEngineerApply(event) {
-            event.preventDefault();
-
-            if (!state.resumeFile) {
-                showToast('請先上傳您的個人履歷 (Resume) 以完成加盟申請流程！', 'alert', '缺少履歷檔案');
-                return;
-            }
-
-            showToast('您的加盟申請與履歷已成功提交！人事部將於 24 小時內聯絡審核。', 'success', '申請提交成功');
+        function handleEngineerApply(e) {
+            e.preventDefault();
+            showToast('申請提交成功！', '我們已收到您的加盟資料，專人會於 24 小時內聯絡您。', 'success');
             document.getElementById('engineer-application-form').reset();
-            removeResumeFile(event);
+            removeFile();
+            setTimeout(() => switchView('customer'), 2000);
         }
+
+        // --- Demo Enhancements (Live Feed Simulation) ---
+        function populateLiveFeed() {
+            const feedContainer = document.getElementById('live-orders-feed');
+            const mockEvents = [
+                { time: '剛剛', text: '深水埗區 陳生 成功配對 系統重灌', eng: '李師傅' },
+                { time: '2 分鐘前', text: '荃灣區 林太 發出急單 Router 無法上網', eng: '指派中...' },
+                { time: '5 分鐘前', text: '中西區 王生 完成 顯示卡更換', eng: '張師傅' },
+                { time: '12 分鐘前', text: '觀塘區 網吧 大量主機死機排查', eng: '何師傅' }
+            ];
+
+            let html = '';
+            mockEvents.forEach(evt => {
+                const isSearching = evt.eng === '指派中...';
+                html += `
+                    <div class="flex items-start gap-3 text-sm p-2 rounded-lg hover:bg-slate-700/50 transition">
+                        <div class="w-1.5 h-1.5 rounded-full ${isSearching ? 'bg-amber-400' : 'bg-emerald-400'} mt-1.5 shrink-0"></div>
+                        <div class="flex-grow">
+                            <p class="text-slate-200">${evt.text}</p>
+                            <p class="text-xs text-slate-400 flex justify-between mt-0.5">
+                                <span>${evt.time}</span>
+                                <span class="${isSearching ? 'text-amber-400' : 'text-slate-500'}">[${evt.eng}]</span>
+                            </p>
+                        </div>
+                    </div>
+                `;
+            });
+            feedContainer.innerHTML = html;
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHeader(); // Initial header setup (logged out state)
+            switchView('customer'); // Default to customer landing page
+            populateLiveFeed();
+        });
+
     </script>
 </body>
 </html>
