@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -540,7 +540,7 @@
             
             const fullName = document.getElementById('app-fullname').value;
             const phone = document.getElementById('app-phone').value;
-            const email = document.getElementById('app-email').value;
+            const email = document.getElementById('app-email').value; // 獲取工程師填寫的電郵地址
             const experience = document.getElementById('app-experience').value;
             
             const checkedSkills = Array.from(document.querySelectorAll('input[name="skill"]:checked'))
@@ -551,17 +551,19 @@
             const resumeName = fileInput.files[0] ? fileInput.files[0].name : '無上傳檔案';
             const hrEmail = 'hr.easyfixitengineer@gmail.com';
 
+            // 將工程師填寫的 email 傳入 templateParams 中（可對應 EmailJS 範本中的 reply_to 或 email 變數）
             const templateParams = {
                 from_name: fullName,
                 phone: phone,
-                email: email,
+                email: email,       // 填寫的電郵地址
+                reply_to: email,    // 設定回信/寄件者信箱
                 experience: experience,
                 skills: checkedSkills,
                 resume_name: resumeName,
                 to_email: hrEmail
             };
 
-            showToast('傳送中...', '正在將申請資料及履歷發送至 HR 郵箱...', 'info');
+            showToast('傳送中...', `正在將申請資料及履歷（發件人: ${email}）發送至 HR 郵箱...`, 'info');
 
             // Check if user still has default placeholder IDs
             const serviceId = 'YOUR_SERVICE_ID';
@@ -571,7 +573,7 @@
                 // Fallback simulation mode so user can see success screen and test flow without real EmailJS keys configured yet
                 console.warn('EmailJS keys are set to placeholder values. Running in simulation mode.');
                 setTimeout(() => {
-                    showToast('申請資料已成功傳送！(模擬模式)', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})`, 'success');
+                    showToast('申請資料已成功傳送！(模擬模式)', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})，回覆信箱: ${email}`, 'success');
                     document.getElementById('engineer-application-form').reset();
                     removeFile('resume-upload', 'file-selected-display');
                     setTimeout(() => switchView('customer'), 2500);
