@@ -548,7 +548,6 @@
         function openTestModal() { document.getElementById('test-email-modal').classList.remove('hidden'); }
         function closeTestModal() { document.getElementById('test-email-modal').classList.add('hidden'); }
 
-        // ========== 修改後的測試寄信函數 ==========
         function runEmailJSTest() {
             const logBox = document.getElementById('test-log-output');
             const recipient = document.getElementById('test-recipient').value;
@@ -563,11 +562,12 @@
                 experience: '5',
                 skills: 'EmailJS 連線測試與診斷',
                 resume_name: 'diagnosis_test.pdf',
-                content: '這是一封來自「好易搵電腦工程」診斷精靈的測試郵件。若收到此信代表您的 EmailJS 公鑰、服務授權與範本皆運作完全正常。'
+                content: '這是一封來自「好易搵電腦工程」診斷精靈的測試郵件。若收到此信代表您的 EmailJS 公鑰、服務授權與範本皆運作完全正常。',
+                to_email: recipient
             };
 
-            // 👇 關鍵修改：加入第四個參數 { to: recipient }
-            emailjs.send('service_agv98ua', 'template_ljom40q', testParams, { to: recipient })
+            // Using default EmailJS service template
+            emailjs.send('service_agv98ua', 'template_ljom40q', testParams)
                 .then(function(res) {
                     console.log('EmailJS Test Success:', res);
                     logBox.innerHTML += `\n[成功] HTTP ${res.status}: ${res.text}`;
@@ -620,7 +620,6 @@
             uploadedFileName = '';
         }
 
-        // ========== 修改後的正式提交申請函數 ==========
         function handleEngineerApply(e) {
             e.preventDefault();
             
@@ -646,13 +645,13 @@
                 experience: experience,
                 skills: checkedSkills,
                 resume_name: uploadedFileName || '未上傳履歷',
-                content: `求職者全名: ${fullName}\n聯絡電話: ${phone}\n電子郵件: ${email}\n相關年資: ${experience} 年\n核心專長: ${checkedSkills}\n履歷檔名: ${uploadedFileName || '無'}`
+                content: `求職者全名: ${fullName}\n聯絡電話: ${phone}\n電子郵件: ${email}\n相關年資: ${experience} 年\n核心專長: ${checkedSkills}\n履歷檔名: ${uploadedFileName || '無'}`,
+                to_email: hrEmail
             };
 
             console.log("Dispatching EmailJS parameters:", templateParams);
 
-            // 👇 關鍵修改：透過第四個參數指定收件人
-            emailjs.send('service_agv98ua', 'template_ljom40q', templateParams, { to: hrEmail })
+            emailjs.send('service_agv98ua', 'template_ljom40q', templateParams)
                 .then(function(response) {
                     console.log('EmailJS Success:', response.status, response.text);
                     submitBtn.disabled = false;
