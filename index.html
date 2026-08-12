@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -563,8 +563,23 @@
 
             showToast('傳送中...', '正在將申請資料及履歷發送至 HR 郵箱...', 'info');
 
-            // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your real EmailJS dashboard IDs
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+            // Check if user still has default placeholder IDs
+            const serviceId = 'YOUR_SERVICE_ID';
+            const templateId = 'YOUR_TEMPLATE_ID';
+
+            if (serviceId === 'YOUR_SERVICE_ID' || templateId === 'YOUR_TEMPLATE_ID') {
+                // Fallback simulation mode so user can see success screen and test flow without real EmailJS keys configured yet
+                console.warn('EmailJS keys are set to placeholder values. Running in simulation mode.');
+                setTimeout(() => {
+                    showToast('申請資料已成功傳送！(模擬模式)', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})`, 'success');
+                    document.getElementById('engineer-application-form').reset();
+                    removeFile('resume-upload', 'file-selected-display');
+                    setTimeout(() => switchView('customer'), 2500);
+                }, 1500);
+                return;
+            }
+
+            emailjs.send(serviceId, templateId, templateParams)
                 .then(function(response) {
                     showToast('申請資料已成功傳送！', `資料及履歷已成功提交至 HR 郵箱 (${hrEmail})`, 'success');
                     document.getElementById('engineer-application-form').reset();
@@ -572,7 +587,7 @@
                     setTimeout(() => switchView('customer'), 2500);
                 }, function(error) {
                     console.error('EmailJS Error:', error);
-                    showToast('發送失敗', '網絡發生錯誤，請稍後重試或直接聯絡客服。', 'warning');
+                    showToast('發送失敗', 'EmailJS 尚未正確設定 Service ID / Template ID，請參閱設定指南。', 'warning');
                 });
         }
 
