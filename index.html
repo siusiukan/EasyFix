@@ -1,4 +1,4 @@
-!DOCTYPE html>
+
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -7,12 +7,19 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts Inter & Noto Sans TC -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // 初始化 EmailJS (請將 YOUR_PUBLIC_KEY 替換為您在 EmailJS 後台取得的 Public Key)
+            emailjs.init({
+              publicKey: "MrjHi6e94tgP_rXoS",
+            });
+        })();
+    </script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -67,13 +74,14 @@
         }
     </style>
 </head>
+
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
 
     <div class="bg-slate-900 text-slate-200 py-2 px-4 text-xs md:text-sm border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
                 <span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">
-                    <i class="fa-solid fa-shield-halved mr-1.5 text-xs"></i> SSL 安全加密直發信箱
+                    <i class="fa-solid fa-server mr-1.5 text-xs"></i> 系統背景 SMTP 直連加密
                 </span>
                 <span class="text-slate-400 hidden sm:inline">好易搵電腦工程有限公司 - 專業工程師配對平台</span>
             </div>
@@ -93,7 +101,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-md w-full pointer-events-none px-4 sm:px-0"></div>
 
     <header class="bg-white border-b border-slate-200 shadow-sm sticky top-[41px] z-40">
@@ -286,24 +293,22 @@
                 <i class="fa-solid fa-user-gear text-slate-800/40 text-9xl absolute -right-6 -bottom-6 pointer-events-none"></i>
             </div>
 
-            <!-- Direct Mail Information Box (Cleaned & Updated) -->
             <div class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-2xl mb-8 text-sm text-emerald-900 shadow-sm">
                 <div class="flex items-center gap-2 font-bold text-base text-emerald-900 mb-2">
-                    <i class="fa-solid fa-shield-halved text-emerald-600"></i> 直發加密郵件服務已啟用
+                    <i class="fa-solid fa-shield-halved text-emerald-600"></i> 背景加密 SMTP 發信已啟用
                 </div>
                 <p class="text-xs leading-relaxed text-emerald-800">
-                    填妥下方表格並按「提交」後，系統會整理您的個人履歷、電話、專長等資料，並自動啟動您的預設郵件客戶端（例如 Outlook / Gmail / Apple Mail），直接寄發至 HR 招聘專用信箱： <strong>hr.easyfixitengineer@gmail.com</strong>。
+                    本表格已整合 <strong>EmailJS</strong> 發送系統。填妥並按「提交」後，系統會在背景自動加密您的資料並直接傳送至 HR 招聘專用信箱： <strong>hr.easyfixitengineer@gmail.com</strong>。無需再手動開啟個人的郵件軟體。
                 </p>
             </div>
 
-            <!-- Application Form with Direct Action -->
             <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-10">
                 <div class="border-b border-slate-200 pb-6 mb-8">
                     <h2 class="text-2xl font-bold text-slate-900">提交工程師加盟申請</h2>
-                    <p class="text-slate-500 text-sm mt-1">請填寫您的基本資料與專長領域，完成後點擊下方按鈕寄出至 hr.easyfixitengineer@gmail.com。</p>
+                    <p class="text-slate-500 text-sm mt-1">請填寫您的基本資料與專長領域，完成後將自動發送。</p>
                 </div>
 
-                <form id="engineer-application-form" onsubmit="handleDirectEmail(event)" class="space-y-6">
+                <form id="engineer-application-form" onsubmit="handleEmailJSDispatch(event)" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">中文/英文全名 *</label>
@@ -349,13 +354,13 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳個人履歷或資格證書 (PDF/Docx) *</label>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳個人履歷 (僅作檔名紀錄，實際檔案請待HR聯絡補交) *</label>
                         <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-slate-50 transition relative group">
                             <input type="file" id="resume-upload" name="附件履歷" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="handleFileUpload(this, 'resume-upload', 'file-selected-display', 'file-name', 'upload-instruction')">
                             <div class="flex flex-col items-center gap-2 text-slate-500">
                                 <i class="fa-solid fa-cloud-arrow-up text-3xl text-brand-500"></i>
-                                <p class="text-sm font-medium" id="upload-instruction">點擊或拖曳檔案至此處上傳（會自動轉換並隨電郵帶出）</p>
-                                <p class="text-xs text-slate-400">支援 .pdf, .doc, .docx (最大 5MB)</p>
+                                <p class="text-sm font-medium" id="upload-instruction">點擊或拖曳檔案至此處選擇檔案</p>
+                                <p class="text-xs text-slate-400 text-amber-600 bg-amber-50 px-2 py-1 rounded">註：瀏覽器直接發信限制，表單僅會發送檔名供參考</p>
                             </div>
                         </div>
                         <div id="file-selected-display" class="hidden mt-2 p-3 bg-brand-50 border border-brand-200 rounded-lg flex items-center justify-between">
@@ -369,7 +374,7 @@
 
                     <div class="pt-4 border-t border-slate-200">
                         <button type="submit" id="submit-apply-btn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition text-lg flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> 傳送加盟申請至 hr.easyfixitengineer@gmail.com
+                            <i class="fa-solid fa-paper-plane"></i> 背景傳送申請至 HR 信箱
                         </button>
                     </div>
                 </form>
@@ -470,6 +475,7 @@
 
         let uploadedFileName = '';
 
+        /* 顯示右下角通知 */
         function showToast(title, message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -480,6 +486,7 @@
             setTimeout(() => toast.remove(), 7000);
         }
 
+        /* 切換不同身份視圖 */
         function switchView(viewName) {
             state.currentView = viewName;
             document.getElementById('view-customer').classList.add('hidden');
@@ -492,6 +499,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        /* 預約 Modal 相關 */
         function openBookingModal() {
             document.getElementById('booking-modal').classList.remove('hidden');
             document.getElementById('booking-step-1').classList.remove('hidden');
@@ -525,6 +533,7 @@
             document.getElementById('eng-notification-badge').classList.add('hidden');
         }
 
+        /* 處理檔案上傳顯示 */
         function handleFileUpload(input, inputId, displayId, nameSpanId, instructionId) {
             const file = input.files[0];
             if (file) {
@@ -540,10 +549,10 @@
             uploadedFileName = '';
         }
 
-        /* Direct Email Dispatcher (No EmailJS, direct mailto and structured data formatting) */
-        function handleDirectEmail(e) {
+        function handleEmailJSDispatch(e) {
             e.preventDefault();
             
+            // 收集表單資料
             const fullName = document.getElementById('app-fullname').value;
             const phone = document.getElementById('app-phone').value;
             const email = document.getElementById('app-email').value;
@@ -556,51 +565,61 @@
                                        .join(', ') || '未選擇專長';
 
             const submitBtn = document.getElementById('submit-apply-btn');
+            // 按鈕顯示 Loading 狀態防止重複提交
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> 正在傳送至 hr.easyfixitengineer@gmail.com ...`;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> 正在安全加密發送中...`;
 
-            console.group("=== 【好易搵】工程師加盟申請資料 ===");
-            console.log("收件人 (To): hr.easyfixitengineer@gmail.com");
-            console.log("申請人全名:", fullName);
-            console.log("聯絡電話:", phone);
-            console.log("回覆電郵:", email);
-            console.log("年資:", experience, "年");
-            console.log("核心專長:", checkedSkills);
-            console.log("附加檔案:", resumeFileName);
+            // 設定 EmailJS 要發送的參數變數 
+            // 這些名稱 (如 applicant_name) 需要在 EmailJS 的 Template 變數中建立對應
+            const templateParams = {
+                to_email: 'hr.easyfixitengineer@gmail.com', // HR 接收信箱
+                applicant_name: fullName,
+                applicant_phone: phone,
+                applicant_email: email,
+                applicant_experience: experience,
+                applicant_skills: checkedSkills,
+                resume_filename: resumeFileName // EmailJS 基本方案無法直接傳送檔案本身，僅紀錄檔名
+            };
+
+            console.group("準備透過 EmailJS 發送參數");
+            console.table(templateParams);
             console.groupEnd();
 
-            const targetEmail = "hr.easyfixitengineer@gmail.com";
-            const emailSubject = encodeURIComponent(`【工程師加盟申請】${fullName} - 好易搵電腦工程`);
-            const emailBody = encodeURIComponent(
-                `收到來自「好易搵電腦工程」平台的新工程師加盟申請：\n\n` +
-                `--------------------------------------------------\n` +
-                `• 中文/英文全名: ${fullName}\n` +
-                `• 聯絡電話 (WhatsApp): ${phone}\n` +
-                `• 電郵地址: ${email}\n` +
-                `• 相關 IT 工作經驗: ${experience} 年\n` +
-                `• 核心服務專長: ${checkedSkills}\n` +
-                `• 附加履歷檔名: ${resumeFileName}\n` +
-                `--------------------------------------------------\n\n` +
-                `請盡快聯絡應徵者審核牌照與安排面試。`
-            );
+            // 呼叫 EmailJS API
+            // 請將 'YOUR_SERVICE_ID' 與 'YOUR_TEMPLATE_ID' 換成您在 EmailJS 後台取得的 ID
+            emailjs.send('service_agv98ua', 'template_ljom40q', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // 恢復按鈕狀態
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 背景傳送申請至 HR 信箱`;
+                    
+                    // 顯示成功提示
+                    showToast(
+                        '✅ 申請已在背景成功寄出！', 
+                        `您的資料已順利發送至 HR，審核後將會透過 Email 或 WhatsApp 聯絡您。`, 
+                        'success'
+                    );
 
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 傳送加盟申請至 hr.easyfixitengineer@gmail.com`;
-                
-                showToast(
-                    '✅ 申請資料已準備完成！', 
-                    `正為您開啟郵件程式發送至 ${targetEmail}（申請人：${fullName}）。`, 
-                    'success'
-                );
-
-                // Open mail client directly to hr.easyfixitengineer@gmail.com
-                window.open(`mailto:${targetEmail}?subject=${emailSubject}&body=${emailBody}`, '_blank');
-
-                // Reset form & file display
-                document.getElementById('engineer-application-form').reset();
-                removeFile('resume-upload', 'file-selected-display');
-            }, 1000);
+                    // 寄出後重置表單
+                    document.getElementById('engineer-application-form').reset();
+                    removeFile('resume-upload', 'file-selected-display');
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // 恢復按鈕狀態
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 背景傳送申請至 HR 信箱`;
+                    
+                    // 顯示錯誤提示 (通常是因為未替換 KEY 或配額用盡)
+                    showToast(
+                        '❌ 發送失敗', 
+                        `無法連線至發信伺服器，請確保已設定正確的 EmailJS 金鑰或稍後再試。`, 
+                        'warning'
+                    );
+                });
         }
     </script>
 </body>
