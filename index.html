@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
@@ -6,14 +6,13 @@
     <title>好易搵電腦工程有限公司 - 專業上門電腦服務與工程師平台</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // 初始化 EmailJS (請將 YOUR_PUBLIC_KEY 替換為您在 EmailJS 後台取得的 Public Key)
+            // 初始化 EmailJS (使用您的 Public Key)
             emailjs.init({
               publicKey: "MrjHi6e94tgP_rXoS",
             });
@@ -26,17 +25,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            500: '#0284c7',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        accent: {
-                            500: '#10b981',
-                            600: '#059669',
+                            50: '#f0f7ff', 100: '#e0effe', 500: '#0284c7', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e',
                         }
                     },
                     fontFamily: {
@@ -49,29 +38,11 @@
     
     <style>
         body { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
-        
-        @keyframes radar-sweep {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .animate-radar {
-            animation: radar-sweep 2s linear infinite;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        @keyframes radar-sweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .animate-radar { animation: radar-sweep 2s linear infinite; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
 
@@ -114,23 +85,14 @@
                     <span class="text-[10px] tracking-widest text-brand-600 uppercase font-semibold block">EasyFix IT Solutions Ltd.</span>
                 </div>
             </div>
-
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
-                <a href="#services" onclick="switchView('customer')" class="hover:text-brand-600 transition">服務範疇</a>
-                <button onclick="switchView('join')" class="hover:text-brand-600 transition text-slate-700 flex items-center gap-1">
-                    <i class="fa-solid fa-briefcase text-brand-500"></i> 工程師招募加盟
-                </button>
-            </nav>
-
             <div class="flex items-center space-x-3">
                 <div id="user-status-display" class="flex items-center gap-2">
                     <span class="text-xs bg-slate-100 text-slate-600 px-3 py-2 rounded-full border border-slate-200 flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                         <span id="current-user-name">客戶：陳先生 (九龍城區)</span>
                     </span>
-                    <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm shadow-brand-600/30 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-wrench"></i>
-                        <span>即時預約上門</span>
+                    <button onclick="openBookingModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-wrench"></i> 即時預約上門
                     </button>
                 </div>
             </div>
@@ -140,236 +102,71 @@
     <main id="view-customer" class="flex-grow">
         <section class="relative bg-slate-900 text-white overflow-hidden py-16 md:py-24">
             <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold mb-6 border border-brand-500/30">
-                            <i class="fa-solid fa-bolt text-amber-400"></i> 全港最快 30分鐘內工程師接單回應
-                        </div>
-                        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
-                            專業電腦技術人員 <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-sky-200">上門檢查與維修服務</span>
-                        </h1>
-                        <p class="text-slate-300 text-base md:text-lg mb-8 leading-relaxed">
-                            網絡故障、硬體升級、系統重設或軟件安裝？只需一鍵下單，系統自動為您配對距離最近的認證工程師，隨時隨地為您解決電腦疑難雜症。
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <button onclick="openBookingModal()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-3.5 rounded-xl text-base shadow-lg shadow-brand-500/30 transition text-center flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-location-dot"></i>
-                                立即搜尋附近工程師
-                            </button>
-                            <button onclick="switchView('join')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3.5 rounded-xl text-base border border-slate-700 transition text-center flex items-center justify-center">
-                                登記成為維修工程師
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-800/80 backdrop-blur border border-slate-700/80 rounded-2xl p-6 shadow-2xl relative">
-                        <div class="flex items-center justify-between pb-4 border-b border-slate-700 mb-4">
-                            <h3 class="font-bold text-slate-100 flex items-center gap-2 text-sm sm:text-base">
-                                <span class="relative flex h-3 w-3">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                                </span>
-                                全港上門工程師實時動態
-                            </h3>
-                            <span class="text-xs text-slate-400">實時派遣中</span>
-                        </div>
-                        <div id="live-orders-feed" class="space-y-3">
-                            <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-700 text-xs flex justify-between items-center">
-                                <div>
-                                    <span class="text-brand-400 font-bold">九龍城區</span> · 硬件升級與SSD更換
-                                    <p class="text-slate-400 text-[11px] mt-0.5">工程師陳大文已接單 (預計 15 分鐘後到達)</p>
-                                </div>
-                                <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded font-bold">進行中</span>
-                            </div>
-                            <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-700 text-xs flex justify-between items-center">
-                                <div>
-                                    <span class="text-brand-400 font-bold">油尖旺區</span> · 開機藍畫面黑屏排查
-                                    <p class="text-slate-400 text-[11px] mt-0.5">工程師李偉強已出發</p>
-                                </div>
-                                <span class="px-2 py-1 bg-amber-500/20 text-amber-300 rounded font-bold">已出發</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-brand-600 font-bold text-xs uppercase tracking-wider">我們的服務</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">單一及綜合上門 IT 技術支援</h2>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80">
-                        <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-5">
-                            <i class="fa-solid fa-magnifying-glass-chart"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">上門電腦全面檢查</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">系統死機、藍畫面、開不到機現場檢測與硬體評估。</p>
-                        <div class="text-xs text-brand-700 font-bold bg-brand-50 inline-block px-2.5 py-1 rounded-md">優惠價 HK$150 起</div>
-                    </div>
-                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-5">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">硬件維修及升級</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">更換SSD固態硬碟、記憶體升級、主機板更換與清潔散熱。</p>
-                        <div class="text-xs text-emerald-700 font-bold bg-emerald-50 inline-block px-2.5 py-1 rounded-md">零件保養180天</div>
-                    </div>
-                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80">
-                        <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl mb-5">
-                            <i class="fa-solid fa-compact-disc"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">軟件安裝及系統更新</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">Windows / macOS 正版系統重裝、辦公軟體驅動與備份。</p>
-                        <div class="text-xs text-sky-700 font-bold bg-sky-50 inline-block px-2.5 py-1 rounded-md">包含資料完整備份</div>
-                    </div>
-                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200/80">
-                        <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-5">
-                            <i class="fa-solid fa-network-wired"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">網絡檢查及Wi-Fi優化</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-4">路由器 Mesh 設定、網路斷線排查與盲點排除。</p>
-                        <div class="text-xs text-indigo-700 font-bold bg-indigo-50 inline-block px-2.5 py-1 rounded-md">訊號覆蓋測試</div>
-                    </div>
-                </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+                    專業電腦技術人員 <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-sky-200">上門檢查與維修服務</span>
+                </h1>
+                <p class="text-slate-300 text-base md:text-lg mb-8 max-w-2xl mx-auto">網絡故障、硬體升級、系統重設或軟件安裝？只需一鍵下單，系統自動為您配對距離最近的認證工程師。</p>
+                <button onclick="switchView('join')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3.5 rounded-xl border border-slate-700 transition">
+                    登記成為維修工程師
+                </button>
             </div>
         </section>
     </main>
 
-    <main id="view-engineer" class="flex-grow hidden bg-slate-900 text-slate-100 py-8 px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="bg-slate-800 rounded-3xl border border-slate-700 p-6 shadow-2xl relative overflow-hidden">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-700 relative z-10">
-                    <div class="flex items-center gap-3">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" class="w-12 h-12 rounded-full object-cover border-2 border-brand-500" alt="Avatar">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h2 class="text-lg font-bold text-white">陳大文 (高級特約工程師)</h2>
-                                <span class="text-xs bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded border border-brand-500/35">認證牌照 #8839</span>
-                            </div>
-                            <p class="text-xs text-slate-400">主要服務分區：九龍城區、油尖旺區</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 bg-slate-900 px-4 py-2 rounded-xl border border-slate-700">
-                        <span class="text-xs text-slate-300 font-medium">接單狀態：</span>
-                        <span class="text-xs text-emerald-400 font-bold">在線中 (自動接收附近訂單)</span>
-                    </div>
-                </div>
-
-                <div class="mt-6 relative z-10">
-                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-bell text-amber-400"></i> 即時可接客戶訂單
-                    </h3>
-                    <div id="engineer-jobs-container" class="space-y-4">
-                        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <div>
-                                <span class="bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-semibold border border-emerald-500/30">九龍城區 · 系統死機檢測</span>
-                                <h4 class="font-bold text-white text-base mt-2">開機無畫面及有咇咇聲</h4>
-                                <p class="text-xs text-slate-400 mt-1">客戶：林小姐 | 預約時間：今日下午 3:00</p>
-                            </div>
-                            <button onclick="acceptOrder()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow-md transition whitespace-nowrap">
-                                立即接單
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <main id="view-engineer" class="flex-grow hidden bg-slate-900 text-slate-100 py-8 px-4">
+        <div class="max-w-3xl mx-auto bg-slate-800 rounded-3xl border border-slate-700 p-6 shadow-2xl text-center">
+            <h2 class="text-xl font-bold text-white mb-2">工程師工作台 (測試用)</h2>
+            <p class="text-slate-400 text-sm">此頁面僅供展示工程師接單狀態。</p>
         </div>
     </main>
 
     <div id="view-join" class="flex-grow hidden bg-slate-50 py-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-gradient-to-r from-slate-900 to-brand-900 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-10 relative overflow-hidden">
-                <div class="relative z-10 max-w-2xl">
-                    <span class="bg-brand-500/30 text-brand-200 text-xs font-semibold px-3 py-1 rounded-full border border-brand-400/30">加盟招募特約工程師</span>
-                    <h1 class="text-3xl font-extrabold mt-3 leading-tight">加入「好易搵」工程團隊 <br>自主接單，開創靈活高收入</h1>
-                    <p class="text-slate-300 text-sm mt-3 leading-relaxed">
-                        我們為全港電腦維修及網絡工程人員提供最方便的接單平台。無須固定守在辦公室，隨時隨地接收上門維修訂單！
-                    </p>
-                </div>
-                <i class="fa-solid fa-user-gear text-slate-800/40 text-9xl absolute -right-6 -bottom-6 pointer-events-none"></i>
-            </div>
-
-            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-2xl mb-8 text-sm text-emerald-900 shadow-sm">
-                <div class="flex items-center gap-2 font-bold text-base text-emerald-900 mb-2">
-                    <i class="fa-solid fa-shield-halved text-emerald-600"></i> 背景加密 SMTP 發信已啟用
-                </div>
-                <p class="text-xs leading-relaxed text-emerald-800">
-                    本表格已整合 <strong>EmailJS</strong> 發送系統。填妥並按「提交」後，系統會在背景自動加密您的資料並直接傳送至 HR 招聘專用信箱： <strong>hr.easyfixitengineer@gmail.com</strong>。無需再手動開啟個人的郵件軟體。
-                </p>
-            </div>
-
+        <div class="max-w-3xl mx-auto px-4">
             <div class="bg-white rounded-3xl border border-slate-200 shadow-lg p-6 sm:p-10">
                 <div class="border-b border-slate-200 pb-6 mb-8">
                     <h2 class="text-2xl font-bold text-slate-900">提交工程師加盟申請</h2>
-                    <p class="text-slate-500 text-sm mt-1">請填寫您的基本資料與專長領域，完成後將自動發送。</p>
+                    <p class="text-slate-500 text-sm mt-1">請填寫您的基本資料，完成後將透過 EmailJS 背景自動發送給 HR。</p>
                 </div>
 
                 <form id="engineer-application-form" onsubmit="handleEmailJSDispatch(event)" class="space-y-6">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">中文/英文全名 *</label>
-                            <input type="text" id="app-fullname" name="全名" required placeholder="例如：陳大文 (David Chan)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            <input type="text" id="app-fullname" required placeholder="例如：陳大文" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">聯絡電話 (WhatsApp) *</label>
-                            <input type="tel" id="app-phone" name="電話號碼" required placeholder="例如：9123 4567" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">聯絡電話 *</label>
+                            <input type="tel" id="app-phone" required placeholder="例如：9123 4567" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none">
                         </div>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">電郵地址 (HR 回覆信箱) *</label>
-                            <input type="email" id="app-email" name="電郵地址" required placeholder="david.chan@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">電郵地址 *</label>
+                            <input type="email" id="app-email" required placeholder="david@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">相關 IT 工作經驗 (年) *</label>
-                            <input type="number" id="app-experience" name="工作年資" min="0" required placeholder="例如：3" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">IT 工作經驗 (年) *</label>
+                            <input type="number" id="app-experience" min="0" required placeholder="例如：3" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-3">您的核心服務專長 (可多選) *</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer">
-                                <input type="checkbox" name="專長" value="硬件組裝維修" class="w-4 h-4 text-brand-600 rounded border-gray-300">
-                                <span class="text-sm text-slate-700">硬件組裝維修</span>
+                        <label class="block text-sm font-semibold text-slate-700 mb-3">核心服務專長 *</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg cursor-pointer">
+                                <input type="checkbox" name="專長" value="硬件組裝維修" class="w-4 h-4 text-brand-600"> <span class="text-sm">硬件組裝維修</span>
                             </label>
-                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer">
-                                <input type="checkbox" name="專長" value="OS系統重灌設定" class="w-4 h-4 text-brand-600 rounded border-gray-300">
-                                <span class="text-sm text-slate-700">OS系統重灌設定</span>
-                            </label>
-                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer">
-                                <input type="checkbox" name="專長" value="網絡/Router設定" class="w-4 h-4 text-brand-600 rounded border-gray-300">
-                                <span class="text-sm text-slate-700">網絡/Router設定</span>
-                            </label>
-                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2.5 rounded-lg cursor-pointer">
-                                <input type="checkbox" name="專長" value="數據備份恢復" class="w-4 h-4 text-brand-600 rounded border-gray-300">
-                                <span class="text-sm text-slate-700">數據備份恢復</span>
+                            <label class="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg cursor-pointer">
+                                <input type="checkbox" name="專長" value="網絡/Router設定" class="w-4 h-4 text-brand-600"> <span class="text-sm">網絡/Router設定</span>
                             </label>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳個人履歷 (僅作檔名紀錄，實際檔案請待HR聯絡補交) *</label>
-                        <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:bg-slate-50 transition relative group">
-                            <input type="file" id="resume-upload" name="附件履歷" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="handleFileUpload(this, 'resume-upload', 'file-selected-display', 'file-name', 'upload-instruction')">
-                            <div class="flex flex-col items-center gap-2 text-slate-500">
-                                <i class="fa-solid fa-cloud-arrow-up text-3xl text-brand-500"></i>
-                                <p class="text-sm font-medium" id="upload-instruction">點擊或拖曳檔案至此處選擇檔案</p>
-                                <p class="text-xs text-slate-400 text-amber-600 bg-amber-50 px-2 py-1 rounded">註：瀏覽器直接發信限制，表單僅會發送檔名供參考</p>
-                            </div>
-                        </div>
-                        <div id="file-selected-display" class="hidden mt-2 p-3 bg-brand-50 border border-brand-200 rounded-lg flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-sm text-brand-800 font-medium">
-                                <i class="fa-solid fa-file-pdf text-brand-600"></i>
-                                <span id="file-name">MyResume.pdf</span>
-                            </div>
-                            <button type="button" onclick="removeFile('resume-upload', 'file-selected-display')" class="text-slate-400 hover:text-red-500 px-2"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">履歷檔名 (選填)</label>
+                        <input type="text" id="app-resume-name" placeholder="例如: resume.pdf (由於網頁版限制，此處僅模擬填寫檔名)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none">
                     </div>
 
                     <div class="pt-4 border-t border-slate-200">
@@ -382,243 +179,93 @@
         </div>
     </div>
 
-    <div id="booking-modal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeBookingModal()"></div>
-        <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden relative flex flex-col max-h-[90vh]">
-                <button onclick="closeBookingModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 z-10"><i class="fa-solid fa-xmark"></i></button>
-                <div class="bg-slate-50 p-6 border-b border-slate-200">
-                    <h3 class="text-xl font-bold text-slate-900">預約上門電腦服務</h3>
-                    <p class="text-sm text-slate-500 mt-1">請填寫詳細狀況，系統將為您配對合適的工程師。</p>
-                </div>
-                <div class="p-6 overflow-y-auto flex-grow">
-                    <form id="booking-step-1" onsubmit="startEngineerSearch(event)" class="space-y-5 block">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">需要甚麼類型的服務？*</label>
-                            <select id="b-service-type" required class="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none bg-white text-sm">
-                                <option value="" disabled selected>請選擇服務範疇...</option>
-                                <option value="全面電腦檢查">全面電腦檢查 (開唔到機/死機)</option>
-                                <option value="硬件維修及更換">硬件維修及更換 (換件/升級)</option>
-                                <option value="軟件/系統重裝">軟件/系統重裝 (重灌Windows/Mac)</option>
-                                <option value="網絡連線問題">網絡連線問題 (斷網/Router設定)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">詳細狀況描述 *</label>
-                            <textarea id="b-description" required rows="3" placeholder="例如：開機不停發出咇咇聲..." class="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none text-sm resize-none"></textarea>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">上傳問題截圖或相關檔案 (選填)</label>
-                            <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:bg-slate-50 transition relative group">
-                                <input type="file" id="booking-attachment" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="handleFileUpload(this, 'booking-attachment', 'booking-file-display', 'booking-file-name', 'booking-upload-instruction')">
-                                <div class="flex flex-col items-center gap-1 text-slate-500">
-                                    <i class="fa-solid fa-paperclip text-2xl text-brand-500"></i>
-                                    <p class="text-xs font-medium" id="booking-upload-instruction">點擊上傳藍畫面照片或相關日誌 (.png, .jpg, .pdf)</p>
-                                </div>
-                            </div>
-                            <div id="booking-file-display" class="hidden mt-2 p-2.5 bg-brand-50 border border-brand-200 rounded-lg flex items-center justify-between">
-                                <div class="flex items-center gap-2 text-xs text-brand-800 font-medium">
-                                    <i class="fa-solid fa-file-image text-brand-600"></i>
-                                    <span id="booking-file-name">screenshot.png</span>
-                                </div>
-                                <button type="button" onclick="removeFile('booking-attachment', 'booking-file-display')" class="text-slate-400 hover:text-red-500 px-2"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">上門地區 *</label>
-                                <select id="b-district" required class="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none bg-white text-sm">
-                                    <option value="" disabled selected>選擇地區</option>
-                                    <option value="油尖旺區">油尖旺區</option>
-                                    <option value="深水埗區">深水埗區</option>
-                                    <option value="九龍城區">九龍城區</option>
-                                    <option value="黃大仙區">黃大仙區</option>
-                                    <option value="觀塘區">觀塘區</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2">詳細地址 (選填)</label>
-                                <input type="text" id="b-address" placeholder="例如：德福花園 B座..." class="w-full px-4 py-3 rounded-xl border border-slate-300 outline-none text-sm">
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition text-base">提交並搜尋附近工程師</button>
-                    </form>
-
-                    <div id="booking-step-2" class="hidden flex-col items-center justify-center py-10 text-center">
-                        <div class="relative w-32 h-32 flex items-center justify-center mb-6">
-                            <div class="absolute inset-0 border-2 border-brand-100 rounded-full"></div>
-                            <div class="absolute inset-0 rounded-full animate-radar" style="background: conic-gradient(from 0deg, transparent 70%, rgba(2, 132, 199, 0.4) 100%);"></div>
-                            <div class="w-4 h-4 bg-brand-600 rounded-full z-10"></div>
-                        </div>
-                        <h4 class="text-lg font-bold text-slate-800 mb-1">正在為您運算最佳配對</h4>
-                    </div>
-
-                    <div id="booking-step-3" class="hidden flex-col items-center text-center py-4">
-                        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 text-2xl mb-4">
-                            <i class="fa-solid fa-check-double"></i>
-                        </div>
-                        <h4 class="text-xl font-bold text-slate-800 mb-2">已找到最合適的工程師！</h4>
-                        <button type="button" onclick="confirmOrderAndDispatch()" class="w-full mt-4 px-4 py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-lg">確認派單</button>
-                    </div>
-                </div>
-            </div>
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 text-center">
+            <h3 class="text-xl font-bold mb-4">預約功能示範</h3>
+            <button onclick="closeBookingModal()" class="px-4 py-2 bg-slate-200 rounded-lg">關閉</button>
         </div>
     </div>
 
     <script>
-        const state = {
-            currentView: 'customer',
-            currentUser: { role: 'customer', name: '陳先生', phone: '98765432', district: '九龍城區' }
-        };
+        function openBookingModal() { document.getElementById('booking-modal').classList.remove('hidden'); }
+        function closeBookingModal() { document.getElementById('booking-modal').classList.add('hidden'); }
 
-        let uploadedFileName = '';
-
-        /* 顯示右下角通知 */
         function showToast(title, message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            let colorCls = type === 'success' ? 'border-emerald-500 bg-slate-800 text-emerald-400' : (type === 'warning' ? 'border-amber-500 bg-slate-800 text-amber-400' : 'border-sky-500 bg-slate-800 text-sky-400');
-            toast.className = `flex items-start gap-3 p-4 rounded-xl border-l-4 shadow-lg transform transition-all duration-300 ${colorCls}`;
+            let colorCls = type === 'success' ? 'border-emerald-500 bg-slate-800 text-emerald-400' : 'border-amber-500 bg-slate-800 text-amber-400';
+            toast.className = `flex items-start gap-3 p-4 rounded-xl border-l-4 shadow-lg mb-2 transform transition-all duration-300 ${colorCls}`;
             toast.innerHTML = `<div><h5 class="text-sm font-bold text-white mb-0.5">${title}</h5><p class="text-xs opacity-90">${message}</p></div>`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 7000);
         }
 
-        /* 切換不同身份視圖 */
         function switchView(viewName) {
-            state.currentView = viewName;
-            document.getElementById('view-customer').classList.add('hidden');
-            document.getElementById('view-join').classList.add('hidden');
-            document.getElementById('view-engineer').classList.add('hidden');
-            
-            if (viewName === 'customer') document.getElementById('view-customer').classList.remove('hidden');
-            if (viewName === 'join') document.getElementById('view-join').classList.remove('hidden');
-            if (viewName === 'engineer') document.getElementById('view-engineer').classList.remove('hidden');
+            ['view-customer', 'view-join', 'view-engineer'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById('view-' + viewName).classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* 預約 Modal 相關 */
-        function openBookingModal() {
-            document.getElementById('booking-modal').classList.remove('hidden');
-            document.getElementById('booking-step-1').classList.remove('hidden');
-            document.getElementById('booking-step-2').classList.add('hidden');
-            document.getElementById('booking-step-3').classList.add('hidden');
-        }
-
-        function closeBookingModal() { document.getElementById('booking-modal').classList.add('hidden'); }
-
-        function startEngineerSearch(e) {
-            e.preventDefault();
-            document.getElementById('booking-step-1').classList.add('hidden');
-            document.getElementById('booking-step-2').classList.remove('hidden');
-            document.getElementById('booking-step-2').classList.add('flex');
-            setTimeout(() => {
-                document.getElementById('booking-step-2').classList.add('hidden');
-                document.getElementById('booking-step-3').classList.remove('hidden');
-                document.getElementById('booking-step-3').classList.add('flex');
-            }, 2000);
-        }
-
-        function confirmOrderAndDispatch() {
-            closeBookingModal();
-            showToast('訂單已發送！', '正在通知工程師工作台...', 'success');
-            document.getElementById('eng-notification-badge').classList.remove('hidden');
-            document.getElementById('eng-notification-badge').innerText = '1';
-        }
-
-        function acceptOrder() {
-            showToast('接單成功！', '您已成功承接此項上門維修服務，請儘快聯絡客戶。', 'success');
-            document.getElementById('eng-notification-badge').classList.add('hidden');
-        }
-
-        /* 處理檔案上傳顯示 */
-        function handleFileUpload(input, inputId, displayId, nameSpanId, instructionId) {
-            const file = input.files[0];
-            if (file) {
-                uploadedFileName = file.name;
-                document.getElementById(nameSpanId).innerText = file.name;
-                document.getElementById(displayId).classList.remove('hidden');
-            }
-        }
-
-        function removeFile(inputId, displayId) {
-            document.getElementById(inputId).value = '';
-            document.getElementById(displayId).classList.add('hidden');
-            uploadedFileName = '';
-        }
-
+        // 核心發信函式
         function handleEmailJSDispatch(e) {
-            e.preventDefault();
+            e.preventDefault(); // 阻擋表單預設重整頁面的行為
             
-            // 收集表單資料
+            // 1. 取得所有輸入框的值
             const fullName = document.getElementById('app-fullname').value;
             const phone = document.getElementById('app-phone').value;
             const email = document.getElementById('app-email').value;
             const experience = document.getElementById('app-experience').value;
-            const resumeInput = document.getElementById('resume-upload');
-            const resumeFileName = resumeInput.files[0] ? resumeInput.files[0].name : '未上傳履歷';
+            const resumeFileName = document.getElementById('app-resume-name').value || '未提供檔名';
             
             const checkedSkills = Array.from(document.querySelectorAll('input[name="專長"]:checked'))
                                        .map(cb => cb.value)
                                        .join(', ') || '未選擇專長';
 
+            // 2. 更改按鈕狀態，顯示 Loading
             const submitBtn = document.getElementById('submit-apply-btn');
-            // 按鈕顯示 Loading 狀態防止重複提交
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> 正在安全加密發送中...`;
 
-            // 設定 EmailJS 要發送的參數變數 
-            // 這些名稱 (如 applicant_name) 需要在 EmailJS 的 Template 變數中建立對應
+            // 3. 準備傳給 EmailJS 的參數物件
+            // 這裡的 Key (例如 name, phone, email) 必須與 EmailJS 範本中的 {{name}} 對齊！
             const templateParams = {
-                to_email: 'hr.easyfixitengineer@gmail.com', // HR 接收信箱
-                applicant_name: fullName,
-                applicant_phone: phone,
-                applicant_email: email,
-                applicant_experience: experience,
-                applicant_skills: checkedSkills,
-                resume_filename: resumeFileName // EmailJS 基本方案無法直接傳送檔案本身，僅紀錄檔名
+                name: fullName,
+                phone: phone,
+                email: email,
+                experience: experience,
+                skills: checkedSkills,
+                resume: resumeFileName
             };
 
-            console.group("準備透過 EmailJS 發送參數");
-            console.table(templateParams);
-            console.groupEnd();
+            console.log("嘗試發送的資料:", templateParams);
 
-            // 呼叫 EmailJS API
-            // 請將 'YOUR_SERVICE_ID' 與 'YOUR_TEMPLATE_ID' 換成您在 EmailJS 後台取得的 ID
+            // 4. 呼叫 EmailJS API 發送
             emailjs.send('service_agv98ua', 'template_ljom40q', templateParams)
                 .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+                    console.log('API 回應成功:', response);
                     
-                    // 恢復按鈕狀態
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 背景傳送申請至 HR 信箱`;
                     
-                    // 顯示成功提示
-                    showToast(
-                        '✅ 申請已在背景成功寄出！', 
-                        `您的資料已順利發送至 HR，審核後將會透過 Email 或 WhatsApp 聯絡您。`, 
-                        'success'
-                    );
-
-                    // 寄出後重置表單
+                    showToast('✅ 申請已在背景成功寄出！', `我們已將您的資料發送至信箱，請留意回覆。`, 'success');
                     document.getElementById('engineer-application-form').reset();
-                    removeFile('resume-upload', 'file-selected-display');
                     
-                }, function(error) {
-                    console.log('FAILED...', error);
+                })
+                .catch(function(error) {
+                    console.error('API 拒絕發送:', error);
                     
-                    // 恢復按鈕狀態
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 背景傳送申請至 HR 信箱`;
+                    submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> 重新嘗試發送`;
                     
-                    // 顯示錯誤提示 (通常是因為未替換 KEY 或配額用盡)
-                    showToast(
-                        '❌ 發送失敗', 
-                        `無法連線至發信伺服器，請確保已設定正確的 EmailJS 金鑰或稍後再試。`, 
-                        'warning'
-                    );
+                    // 詳細錯誤提示，幫助排錯
+                    let errorMsg = error.text || error.message || '未知錯誤';
+                    if(error.status === 403) {
+                        errorMsg = "權限遭拒(403)。請前往 EmailJS 後台的 Security 標籤，確認「Domain List」是否清空！";
+                    }
+                    
+                    showToast('❌ 發送失敗', `錯誤代碼: ${error.status}，原因: ${errorMsg}`, 'warning');
                 });
         }
     </script>
